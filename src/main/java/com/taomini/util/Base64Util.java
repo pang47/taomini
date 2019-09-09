@@ -1,7 +1,5 @@
 package com.taomini.util;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
