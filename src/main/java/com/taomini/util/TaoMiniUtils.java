@@ -1,5 +1,6 @@
 package com.taomini.util;
 
+import com.taomini.core.constant.AccountChannelEnum;
 import com.taomini.core.constant.TransTypeEnum;
 
 /**
@@ -74,6 +75,28 @@ public class TaoMiniUtils {
 
     public static String getTransImageUrl(String transType){
         return imgList[Integer.parseInt(transType) - 1];
+    }
+
+    public static String getChannel(String channelName){
+        if(AccountChannelEnum.ALICHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.ALICHANNEL.getCode();
+        }else if(AccountChannelEnum.HUABEICHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.HUABEICHANNEL.getCode();
+        }else if(AccountChannelEnum.ZHAOHANGCHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.ZHAOHANGCHANNEL.getCode();
+        }else if(AccountChannelEnum.JIANHANGCHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.JIANHANGCHANNEL.getCode();
+        }else if(AccountChannelEnum.GONGHANGCHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.GONGHANGCHANNEL.getCode();
+        }else if(AccountChannelEnum.WECHATCHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.WECHATCHANNEL.getCode();
+        }else if(AccountChannelEnum.DEBTCHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.DEBTCHANNEL.getCode();
+        }else if(AccountChannelEnum.JINGDONGCHANNEL.getValue().equals(channelName)){
+            return AccountChannelEnum.JINGDONGCHANNEL.getCode();
+        }else{
+            return "未知";
+        }
     }
 
 }

@@ -1,0 +1,47 @@
+package com.taomini.controller;
+
+import com.taomini.core.common.Result;
+import com.taomini.model.AccountInfoDTO;
+import com.taomini.service.IAccountInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * 〈一句话功能简述〉<br>
+ * 〈〉
+ *
+ * @author chentao
+ * @create 2019/9/9
+ * @since 1.0.0
+ */
+@RestController
+@RequestMapping(value = "account")
+public class AccountController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AccountController.class);
+
+    @Autowired
+    IAccountInfoService accountInfoService;
+
+    @RequestMapping(value="upload", method = RequestMethod.POST)
+    @ResponseBody
+    public Result upload(AccountInfoDTO accountInfoDTO){
+        LOGGER.info("上传余额信息,{},{},{}", accountInfoDTO.getUser(), accountInfoDTO.getBalance(), accountInfoDTO.getChannelName());
+        Result result = new Result();
+
+        try{
+            accountInfoService.saveOrUpdateAccountInfo(accountInfoDTO);
+        }catch (Exception e){
+            LOGGER.error("获取账户信息失败", e);
+            result.setSucc(false);
+        }
+
+        return result;
+    }
+
+}
