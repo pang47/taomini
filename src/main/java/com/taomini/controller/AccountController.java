@@ -39,6 +39,7 @@ public class AccountController {
         }catch (Exception e){
             LOGGER.error("获取账户信息失败", e);
             result.setSucc(false);
+            result.setRetMsg("交易异常");
         }
 
         return result;

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 通过namespace来找到对应的sql语句 -->
+<mapper namespace="com.taomini.core.dao.IAccountTransInfoMapper">
+	<!-- 映射对象 -->
+	<resultMap type="com.taomini.model.AccountTransInfoDTO" id="BaseResultMap">
+		<id column="ACCOUNT_TRANS_ID" jdbcType="VARCHAR" property="accountTransId" />
+		<id column="MONEY" jdbcType="VARCHAR" property="money" />
+		<id column="CRT_DATE" jdbcType="VARCHAR" property="crtDate" />
+		<id column="CRT_TIME" jdbcType="VARCHAR" property="crtTime" />
+		<id column="OPEN_ID" jdbcType="VARCHAR" property="user" />
+		<id column="CHANNEL" jdbcType="VARCHAR" property="channel" />
+		<id column="CHANNEL_NAME" jdbcType="VARCHAR" property="channelName" />
+	</resultMap>
+
+	<insert id="save" parameterType="com.taomini.model.AccountTransInfoDTO">
+		INSERT INTO ACCOUNT_TRANS_INFO(
+		ACCOUNT_TRANS_ID,
+		MONEY,
+		CRT_DATE,
+		CRT_TIME,
+		CHANNEL,
+		CHANNEL_NAME,
+		OPEN_ID
+		)
+		VALUES(
+			#{accountTransId,jdbcType=VARCHAR},
+			#{money,jdbcType=VARCHAR},
+			#{crtDate,jdbcType=VARCHAR},
+			#{crtTime,jdbcType=VARCHAR},
+			#{channel,jdbcType=VARCHAR},
+			#{channelName,jdbcType=VARCHAR},
+			#{user,jdbcType=VARCHAR}
+		)
+	</insert>
+
+	<select id="queryLimitTen" parameterType="com.taomini.model.AccountTransInfoDTO" resultMap="BaseResultMap">
+		SELECT
+		ACCOUNT_TRANS_ID,
+		MONEY,
+		CRT_DATE,
+		CRT_TIME,
+		CHANNEL,
+		CHANNEL_NAME,
+		OPEN_ID
+		FROM
+		ACCOUNT_TRANS_INFO
+		ORDER BY CRT_DATE DESC
+		LIMIT 10
+	</select>
+
+
+
+</mapper>
