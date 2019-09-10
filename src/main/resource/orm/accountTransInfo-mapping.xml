@@ -13,6 +13,7 @@
 		<id column="OPEN_ID" jdbcType="VARCHAR" property="user" />
 		<id column="CHANNEL" jdbcType="VARCHAR" property="channel" />
 		<id column="CHANNEL_NAME" jdbcType="VARCHAR" property="channelName" />
+		<id column="BEFORE_BALANCE" jdbcType="VARCHAR" property="beforeBalance" />
 	</resultMap>
 
 	<insert id="save" parameterType="com.taomini.model.AccountTransInfoDTO">
@@ -23,7 +24,8 @@
 		CRT_TIME,
 		CHANNEL,
 		CHANNEL_NAME,
-		OPEN_ID
+		OPEN_ID,
+		BEFORE_BALANCE
 		)
 		VALUES(
 			#{accountTransId,jdbcType=VARCHAR},
@@ -32,7 +34,8 @@
 			#{crtTime,jdbcType=VARCHAR},
 			#{channel,jdbcType=VARCHAR},
 			#{channelName,jdbcType=VARCHAR},
-			#{user,jdbcType=VARCHAR}
+			#{user,jdbcType=VARCHAR},
+			#{beforeBalance,jdbcType=VARCHAR}
 		)
 	</insert>
 
@@ -44,7 +47,8 @@
 		CRT_TIME,
 		CHANNEL,
 		CHANNEL_NAME,
-		OPEN_ID
+		OPEN_ID,
+		BEFORE_BALANCE
 		FROM
 		ACCOUNT_TRANS_INFO
 		ORDER BY CRT_DATE DESC

@@ -17,6 +17,7 @@ public class AccountTransInfoDTO implements Serializable{
     private String uploadUser; //上传人
     private String channel;
     private String channelName;
+    private String beforeBalance; //修改前金额
 
     public String getAccountTransId() {
         return accountTransId;
@@ -80,5 +81,13 @@ public class AccountTransInfoDTO implements Serializable{
 
     public void setChannelName(String channelName) {
         this.channelName = channelName;
+    }
+
+    public String getBeforeBalance() {
+        return beforeBalance;
+    }
+
+    public void setBeforeBalance(String beforeBalance) {
+        this.beforeBalance = beforeBalance;
     }
 }

@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +27,7 @@ import java.util.UUID;
  * @since 1.0.0
  */
 @Service
+@Transactional
 public class AccountInfoServiceImpl implements IAccountInfoService {
 
     @Autowired
@@ -44,12 +44,11 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public void saveOrUpdateAccountInfo(AccountInfoDTO accountInfoDTO) {
 
         String channel = TaoMiniUtils.getChannel(accountInfoDTO.getChannelName());
         String user = UserConstant.TAOUSER.getUserName().equals(accountInfoDTO.getUserName())?UserConstant.TAOUSER.getOpenId():UserConstant.SIQIUSER.getOpenId();
-        String money = accountInfoDTO.getBalance();
+        String money = "0";
         AccountInfoDTO queryAccount = getAccountInfo(user, channel);
         LOGGER.info("是否存在账户信息:{}", queryAccount != null);
         if(queryAccount == null){
@@ -64,21 +63,16 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
             accountInfoMapper.saveAccount(accountInfoDTO);
         }else{
             //更新
+            money = queryAccount.getBalance();
             queryAccount.setUpdateDate(DateUtil.getCurrDate());
             queryAccount.setUpdateTime(DateUtil.getCurrTime());
-
-            double balance = Double.parseDouble(accountInfoDTO.getBalance()) + Double.parseDouble(queryAccount.getBalance());
-            queryAccount.setBalance(balance + "");
-
+            queryAccount.setBalance(accountInfoDTO.getBalance());
             accountInfoMapper.updateAccount(queryAccount);
 
             accountInfoDTO = queryAccount;
         }
 
-        accountInfoDTO.setBalance(money);
-
-        addAccountTransInfo(accountInfoDTO);
-
+        addAccountTransInfo(accountInfoDTO, money);
 
     }
 
@@ -94,7 +88,9 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
         return accountInfoMapper.getAccountInfoByUserIdAndChannel(accountInfoDTO);
     }
 
-    private void addAccountTransInfo(AccountInfoDTO accountInfoDTO){
+    private void addAccountTransInfo(AccountInfoDTO accountInfoDTO, String oldBanlance){
+
+        int i = 1/0;
         AccountTransInfoDTO accountTransInfoDTO = new AccountTransInfoDTO();
         accountTransInfoDTO.setAccountTransId(UUID.randomUUID().toString());
         accountTransInfoDTO.setChannel(accountInfoDTO.getChannel());
@@ -103,7 +99,7 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
         accountTransInfoDTO.setCrtTime(DateUtil.getCurrTime());
         accountTransInfoDTO.setUser(accountInfoDTO.getUser());
         accountTransInfoDTO.setMoney(accountInfoDTO.getBalance());
-
+        accountTransInfoDTO.setBeforeBalance(oldBanlance);
         accountTransInfoMapper.save(accountTransInfoDTO);
     }
 }
