@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -85,6 +86,17 @@ public class TransRecordController {
             LOGGER.error("查询失败:{}", e);
             result.setSucc(false);
         }
+
+        return result;
+    }
+
+    @RequestMapping(value = "/getPayByMonth", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getPayByMonth(String month){
+        Result result = new Result();
+
+        result.setSucc(true);
+        result.setData(transRecordService.getPayByMonth(month));
 
         return result;
     }

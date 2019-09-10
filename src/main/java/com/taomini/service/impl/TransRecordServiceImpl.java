@@ -1,5 +1,6 @@
 package com.taomini.service.impl;
 
+import com.taomini.core.constant.UserConstant;
 import com.taomini.core.dao.ITransRecordMapper;
 import com.taomini.model.TransRecordDTO;
 import com.taomini.model.vo.TransRecordVO;
@@ -9,6 +10,7 @@ import com.taomini.util.TaoMiniUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -143,5 +145,26 @@ public class TransRecordServiceImpl implements ITransRecordService {
         }
 
         return retList;
+    }
+
+    @Override
+    public String getPayByMonth(String month) {
+        TransRecordDTO dto = new TransRecordDTO();
+        dto.setTransDate(month);
+        dto.setUser(UserConstant.TAO);
+        double pay = 0;
+
+        List<TransRecordDTO> list = transRecordMapper.getRecordByUserAndDate(dto);
+        for(TransRecordDTO res : list){
+            pay += Double.parseDouble(res.getMoney());
+        }
+
+        dto.setUser(UserConstant.SIQI);
+        List<TransRecordDTO> listq = transRecordMapper.getRecordByUserAndDate(dto);
+        for(TransRecordDTO res : list){
+            pay += Double.parseDouble(res.getMoney());
+        }
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(pay) + "";
     }
 }

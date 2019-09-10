@@ -13,4 +13,6 @@ public interface ITransRecordService {
     List<TransRecordVO> getRecordByUser(String openId);
 
     List<TransRecordVO> getRecordByUserAndDatePage(String openId, String transDate);
+
+    String getPayByMonth(String month);
 }
