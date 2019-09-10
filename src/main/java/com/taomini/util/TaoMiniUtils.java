@@ -13,24 +13,24 @@ import com.taomini.core.constant.UserConstant;
  */
 public class TaoMiniUtils {
     
-    public static String[] imgList = {"../../image/breakfast.png",
-            "../../image/lunch.png",
-            "../../image/dinner.png",
-            "../../image/yule.png",
-            "../../image/jiaoyou.png",
-            "../../image/fushi.png",
-            "../../image/bus.png",
-            "../../image/xigua.png",
-            "../../image/house.png",
-            "../../image/qinqi.png",
-            "../../image/shuma.png",
-            "../../image/meirong.png",
-            "../../image/lingshi.png",
-            "../../image/lvxing.png",
-            "../../image/jujia.png",
-            "../../image/other.png",
-            "../../image/other.png",
-            "../../image/other.png"};
+    public static String[] imgList = {"https://www.pangt.xyz/breakfast.png",
+            "https://www.pangt.xyz/lunch.png",
+            "https://www.pangt.xyz/dinner.png",
+            "https://www.pangt.xyz/yule.png",
+            "https://www.pangt.xyz/jiaoyou.png",
+            "https://www.pangt.xyz/fushi.png",
+            "https://www.pangt.xyz/bus.png",
+            "https://www.pangt.xyz/xigua.png",
+            "https://www.pangt.xyz/house.png",
+            "https://www.pangt.xyz/qinqi.png",
+            "https://www.pangt.xyz/shuma.png",
+            "https://www.pangt.xyz/meirong.png",
+            "https://www.pangt.xyz/lingshi.png",
+            "https://www.pangt.xyz/lvxing.png",
+            "https://www.pangt.xyz/jujia.png",
+            "https://www.pangt.xyz/other.png",
+            "https://www.pangt.xyz/other.png",
+            "https://www.pangt.xyz/other.png"};
     
     public static String getTransTypeName(String transType){
         String retMsg = "无对应交易类型";
