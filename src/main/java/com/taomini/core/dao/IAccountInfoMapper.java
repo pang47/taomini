@@ -1,6 +1,7 @@
 package com.taomini.core.dao;
 
 import com.taomini.model.AccountInfoDTO;
+import com.taomini.model.vo.AccountInfoVo;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface IAccountInfoMapper {
     void saveAccount(AccountInfoDTO accountInfoDTO);
 
     int updateAccount(AccountInfoDTO accountInfoDTO);
+
+    List<AccountInfoVo> getAccountInfo();
 }

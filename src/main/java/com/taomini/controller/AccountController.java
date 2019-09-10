@@ -68,4 +68,21 @@ public class AccountController {
         return result;
     }
 
+    @RequestMapping(value="/getAllAccountInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getAllAccountInfo(){
+        Result result = new Result();
+
+        try{
+            result.setData(accountInfoService.getAccountInfo());
+            result.setSucc(true);
+        }catch (Exception e){
+            LOGGER.error("获取所有账户信息失败", e);
+            result.setSucc(false);
+            result.setRetMsg("获取信息失败," + e.getMessage());
+        }
+
+        return result;
+    }
+
 }

@@ -100,6 +100,28 @@ public class TaoMiniUtils {
         }
     }
 
+    public static String getChannelName(String channel){
+        if(AccountChannelEnum.ALICHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.ALICHANNEL.getValue();
+        }else if(AccountChannelEnum.HUABEICHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.HUABEICHANNEL.getValue();
+        }else if(AccountChannelEnum.ZHAOHANGCHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.ZHAOHANGCHANNEL.getValue();
+        }else if(AccountChannelEnum.JIANHANGCHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.JIANHANGCHANNEL.getValue();
+        }else if(AccountChannelEnum.GONGHANGCHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.GONGHANGCHANNEL.getValue();
+        }else if(AccountChannelEnum.WECHATCHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.WECHATCHANNEL.getValue();
+        }else if(AccountChannelEnum.DEBTCHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.DEBTCHANNEL.getValue();
+        }else if(AccountChannelEnum.JINGDONGCHANNEL.getCode().equals(channel)){
+            return AccountChannelEnum.JINGDONGCHANNEL.getValue();
+        }else{
+            return "未知";
+        }
+    }
+
     public static String getUserName(String openId){
         if(UserConstant.TAO.equals(openId)){
             return UserConstant.TAOUSER.getUserName();

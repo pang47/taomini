@@ -68,5 +68,9 @@
 		WHERE OPEN_ID = #{user,jdbcType=VARCHAR} AND CHANNEL = #{channel,jdbcType=VARCHAR}
 	</update>
 
+	<select id="getAccountInfo" resultType="com.taomini.model.vo.AccountInfoVo">
+		SELECT channel, SUM(balance) AS sumBalance, GROUP_CONCAT(balance, '(', user_name, ')') AS exp FROM account_info GROUP BY channel;
+	</select>
+
 
 </mapper>

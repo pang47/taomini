@@ -6,6 +6,7 @@ import com.taomini.core.dao.IAccountInfoMapper;
 import com.taomini.core.dao.IAccountTransInfoMapper;
 import com.taomini.model.AccountInfoDTO;
 import com.taomini.model.AccountTransInfoDTO;
+import com.taomini.model.vo.AccountInfoVo;
 import com.taomini.service.IAccountInfoService;
 import com.taomini.util.DateUtil;
 import com.taomini.util.TaoMiniUtils;
@@ -40,8 +41,17 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AccountInfoServiceImpl.class);
 
     @Override
-    public List<AccountInfoDTO> getAccountInfo() {
-        return null;
+    public List<AccountInfoVo> getAccountInfo() {
+        List<AccountInfoVo> retList = accountInfoMapper.getAccountInfo();
+        for(AccountInfoVo vo : retList){
+            String[] exps = vo.getExp().split(",");
+            if(exps.length == 2){
+                vo.setExp(exps[0] + "+" + exps[1]);
+            }
+            vo.setExp(vo.getExp() + "=" + vo.getSumBalance() + "元");
+            vo.setChannelName(TaoMiniUtils.getChannelName(vo.getChannel()));
+        }
+        return retList;
     }
 
     @Override
