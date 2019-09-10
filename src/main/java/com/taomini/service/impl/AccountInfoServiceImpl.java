@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.UUID;
@@ -81,6 +82,17 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
         return 0;
     }
 
+    @Override
+    public List<AccountTransInfoDTO> getAccountTransInfo(String length) {
+        //默认5条
+        if(StringUtils.isEmpty(length))
+            length = "5";
+        List<AccountTransInfoDTO> list = accountTransInfoMapper.queryLimit(Integer.parseInt(length));
+        for(AccountTransInfoDTO dto : list)
+            dto.setUser(TaoMiniUtils.getUserName(dto.getUser()));
+        return list;
+    }
+
     private AccountInfoDTO getAccountInfo(String open_id, String channel){
         AccountInfoDTO accountInfoDTO = new AccountInfoDTO();
         accountInfoDTO.setUser(open_id);
@@ -89,8 +101,6 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
     }
 
     private void addAccountTransInfo(AccountInfoDTO accountInfoDTO, String oldBanlance){
-
-        int i = 1/0;
         AccountTransInfoDTO accountTransInfoDTO = new AccountTransInfoDTO();
         accountTransInfoDTO.setAccountTransId(UUID.randomUUID().toString());
         accountTransInfoDTO.setChannel(accountInfoDTO.getChannel());

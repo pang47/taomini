@@ -2,6 +2,7 @@ package com.taomini.controller;
 
 import com.taomini.core.common.Result;
 import com.taomini.model.AccountInfoDTO;
+import com.taomini.model.AccountTransInfoDTO;
 import com.taomini.service.IAccountInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -40,6 +43,26 @@ public class AccountController {
             LOGGER.error("获取账户信息失败", e);
             result.setSucc(false);
             result.setRetMsg("交易异常");
+        }
+
+        return result;
+    }
+
+    @RequestMapping(value="/getAccountTransInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getAccountTransInfo(String length){
+        LOGGER.info("获取上传余额交易记录:{}", length);
+        Result result = new Result();
+
+        try{
+            List<AccountTransInfoDTO> retList = accountInfoService.getAccountTransInfo(length);
+            LOGGER.info("返回查询上传余额条数:{}", retList.size());
+            result.setData(retList);
+            result.setSucc(true);
+        }catch (Exception e){
+            LOGGER.error("查询上传余额记录失败", e);
+            result.setSucc(false);
+            result.setRetMsg("交易失败");
         }
 
         return result;

@@ -2,6 +2,7 @@ package com.taomini.util;
 
 import com.taomini.core.constant.AccountChannelEnum;
 import com.taomini.core.constant.TransTypeEnum;
+import com.taomini.core.constant.UserConstant;
 
 /**
  * 工具类
@@ -96,6 +97,16 @@ public class TaoMiniUtils {
             return AccountChannelEnum.JINGDONGCHANNEL.getCode();
         }else{
             return "未知";
+        }
+    }
+
+    public static String getUserName(String openId){
+        if(UserConstant.TAO.equals(openId)){
+            return UserConstant.TAOUSER.getUserName();
+        }else if(UserConstant.SIQI.equals(openId)){
+            return UserConstant.SIQIUSER.getUserName();
+        }else{
+            return "第三者";
         }
     }
 

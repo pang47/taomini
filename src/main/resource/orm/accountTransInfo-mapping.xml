@@ -39,7 +39,7 @@
 		)
 	</insert>
 
-	<select id="queryLimitTen" parameterType="com.taomini.model.AccountTransInfoDTO" resultMap="BaseResultMap">
+	<select id="queryLimit" parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		SELECT
 		ACCOUNT_TRANS_ID,
 		MONEY,
@@ -51,8 +51,8 @@
 		BEFORE_BALANCE
 		FROM
 		ACCOUNT_TRANS_INFO
-		ORDER BY CRT_DATE DESC
-		LIMIT 10
+		ORDER BY CRT_DATE DESC, CRT_TIME DESC
+		LIMIT #{length}
 	</select>
 
 

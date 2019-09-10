@@ -8,6 +8,7 @@
 
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler />
+    <!-- 避免重复注册导致事务失败 -->
     <context:component-scan base-package="com.taomini">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
