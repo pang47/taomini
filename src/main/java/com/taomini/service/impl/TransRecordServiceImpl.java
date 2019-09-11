@@ -161,7 +161,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
         dto.setUser(UserConstant.SIQI);
         List<TransRecordDTO> listq = transRecordMapper.getRecordByUserAndDate(dto);
-        for(TransRecordDTO res : list){
+        for(TransRecordDTO res : listq){
             pay += Double.parseDouble(res.getMoney());
         }
         DecimalFormat df = new DecimalFormat("#.00");
