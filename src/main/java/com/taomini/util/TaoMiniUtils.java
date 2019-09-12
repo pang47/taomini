@@ -80,7 +80,7 @@ public class TaoMiniUtils {
 
     public static String getTransActiveImageUrl(String transType){
         String imageUrl = imgList[Integer.parseInt(transType) - 1];
-        String[] imageUrls = imageUrl.split(".");
+        String[] imageUrls = imageUrl.split("\\.");
         return imageUrls[0] + "-active." + imageUrls[1];
     }
 
