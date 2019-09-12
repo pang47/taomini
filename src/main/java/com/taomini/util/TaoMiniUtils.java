@@ -29,8 +29,8 @@ public class TaoMiniUtils {
             "https://www.pangt.xyz/lvxing.png",
             "https://www.pangt.xyz/jujia.png",
             "https://www.pangt.xyz/other.png",
-            "https://www.pangt.xyz/other.png",
-            "https://www.pangt.xyz/other.png"};
+            "https://www.pangt.xyz/supermarket.png",
+            "https://www.pangt.xyz/taobao.png"};
     
     public static String getTransTypeName(String transType){
         String retMsg = "无对应交易类型";
@@ -76,6 +76,12 @@ public class TaoMiniUtils {
 
     public static String getTransImageUrl(String transType){
         return imgList[Integer.parseInt(transType) - 1];
+    }
+
+    public static String getTransActiveImageUrl(String transType){
+        String imageUrl = imgList[Integer.parseInt(transType) - 1];
+        String[] imageUrls = imageUrl.split(".");
+        return imageUrls[0] + "-active." + imageUrls[1];
     }
 
     public static String getChannel(String channelName){

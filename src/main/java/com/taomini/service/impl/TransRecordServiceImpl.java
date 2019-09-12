@@ -58,7 +58,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         double total = 0;
         for(TransRecordDTO trans : transs){
             trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()));
-            trans.setImageUrl(TaoMiniUtils.getTransImageUrl(trans.getTransType()));
+            trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(trans.getTransType()));
             if(transDate.equals("")){
                 //第一次进入
                 transDate = trans.getTransDate();
@@ -109,7 +109,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         double total = 0;
         for(TransRecordDTO trans : transs){
             trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()));
-            trans.setImageUrl(TaoMiniUtils.getTransImageUrl(trans.getTransType()));
+            trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(trans.getTransType()));
             if(transDate.equals("")){
                 //第一次进入
                 transDate = trans.getTransDate();
