@@ -80,8 +80,8 @@ public class TaoMiniUtils {
 
     public static String getTransActiveImageUrl(String transType){
         String imageUrl = imgList[Integer.parseInt(transType) - 1];
-        String[] imageUrls = imageUrl.split("\\.");
-        return imageUrls[0] + "-active." + imageUrls[1];
+        int index = imageUrl.lastIndexOf(".");
+        return imageUrl.substring(0, index) + "-active." + imageUrl.substring(index+1);
     }
 
     public static String getChannel(String channelName){
@@ -136,6 +136,10 @@ public class TaoMiniUtils {
         }else{
             return "第三者";
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(getTransActiveImageUrl("12"));
     }
 
 }
