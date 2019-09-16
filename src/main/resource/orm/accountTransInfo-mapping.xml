@@ -55,6 +55,22 @@
 		LIMIT #{length}
 	</select>
 
+	<select id="queryByChannel" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		ACCOUNT_TRANS_ID,
+		MONEY,
+		CRT_DATE,
+		CRT_TIME,
+		CHANNEL,
+		CHANNEL_NAME,
+		OPEN_ID,
+		BEFORE_BALANCE
+		FROM
+		ACCOUNT_TRANS_INFO WHERE CHANNEL = #{channel}
+		ORDER BY CRT_DATE DESC, CRT_TIME DESC
+		LIMIT 2
+	</select>
+
 
 
 </mapper>

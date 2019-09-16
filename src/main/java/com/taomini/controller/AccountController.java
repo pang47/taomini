@@ -1,6 +1,7 @@
 package com.taomini.controller;
 
 import com.taomini.core.common.Result;
+import com.taomini.core.common.TaoMiniException;
 import com.taomini.model.AccountInfoDTO;
 import com.taomini.model.AccountTransInfoDTO;
 import com.taomini.service.IAccountInfoService;
@@ -80,6 +81,23 @@ public class AccountController {
             LOGGER.error("获取所有账户信息失败", e);
             result.setSucc(false);
             result.setRetMsg("获取信息失败," + e.getMessage());
+        }
+
+        return result;
+    }
+
+    @RequestMapping(value="getAccountInfoByChannel", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getAccountInfoByChannel(String channel){
+        LOGGER.info("获取渠道存款信息:{}", channel);
+        Result result = new Result();
+
+        try {
+            result.setData(accountInfoService.getAccountInfoByChannel(channel));
+            result.setSucc(true);
+        } catch (TaoMiniException e) {
+            LOGGER.error("查询出错:", e);
+            result.setSucc(false);
         }
 
         return result;

@@ -9,4 +9,6 @@ public interface IAccountTransInfoMapper {
     void save(AccountTransInfoDTO accountTransInfoDTO);
 
     List<AccountTransInfoDTO> queryLimit(Integer length);
+
+    List<AccountTransInfoDTO> queryByChannel(String channel);
 }

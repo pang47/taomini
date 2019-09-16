@@ -1,6 +1,7 @@
 package com.taomini.service.impl;
 
 
+import com.taomini.core.common.TaoMiniException;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.core.dao.IAccountInfoMapper;
 import com.taomini.core.dao.IAccountTransInfoMapper;
@@ -101,6 +102,23 @@ public class AccountInfoServiceImpl implements IAccountInfoService {
         for(AccountTransInfoDTO dto : list)
             dto.setUser(TaoMiniUtils.getUserName(dto.getUser()));
         return list;
+    }
+
+    @Override
+    public String[] getAccountInfoByChannel(String channel) throws TaoMiniException {
+        List<AccountTransInfoDTO> list = accountTransInfoMapper.queryByChannel(channel);
+        String[] arr = new String[3];
+        if(list.isEmpty()){
+            throw new TaoMiniException("无记录");
+        }else if(list.size() == 1){
+
+            AccountTransInfoDTO dto = list.get(0);
+            arr[0] = dto.getCrtDate() + " " +dto.getCrtTime();
+            arr[1] = dto.getMoney();
+            arr[2] = String.valueOf(Double.parseDouble(dto.getMoney()) - Double.parseDouble(dto.getBeforeBalance()));
+
+        }
+        return arr;
     }
 
     private AccountInfoDTO getAccountInfo(String open_id, String channel){

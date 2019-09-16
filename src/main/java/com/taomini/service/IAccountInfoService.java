@@ -1,5 +1,6 @@
 package com.taomini.service;
 
+import com.taomini.core.common.TaoMiniException;
 import com.taomini.model.AccountInfoDTO;
 import com.taomini.model.AccountTransInfoDTO;
 import com.taomini.model.vo.AccountInfoVo;
@@ -14,4 +15,6 @@ public interface IAccountInfoService {
     int updateAccountInfo();
 
     List<AccountTransInfoDTO> getAccountTransInfo(String length);
+
+    String[] getAccountInfoByChannel(String channel) throws TaoMiniException;
 }
