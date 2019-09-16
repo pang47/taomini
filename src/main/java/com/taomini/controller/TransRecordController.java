@@ -127,4 +127,15 @@ public class TransRecordController {
         return result;
     }
 
+    @RequestMapping(value = "/getTransRerord", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getTransRecord(String transId){
+        Result result = new Result();
+
+        result.setSucc(true);
+        result.setData(transRecordService.getTransRecord(transId));
+
+        return result;
+    }
+
 }

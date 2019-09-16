@@ -77,4 +77,19 @@
 		ORDER BY TRANS_DATE DESC
 	</select>
 
+	<select id="getTransRecord" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		TRANS_ID,
+		MONEY,
+		OPEN_ID,
+		USER_NAME,
+		TRANS_DATE,
+		TRANS_TIME,
+		TRANS_TYPE,
+		REMARK
+		FROM
+		TRANSRECORD
+		WHERE TRANS_ID = #{transId}
+	</select>
+
 </mapper>

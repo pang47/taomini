@@ -18,4 +18,6 @@ public interface ITransRecordMapper {
     List<TransRecordDTO> getRecordByUserAndDate(TransRecordDTO dto);
 
     List<TransRecordDTO> getRecordByUser(TransRecordDTO dto);
+
+    TransRecordDTO getTransRecord(String transId);
 }

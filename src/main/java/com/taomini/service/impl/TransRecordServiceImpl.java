@@ -167,4 +167,10 @@ public class TransRecordServiceImpl implements ITransRecordService {
         DecimalFormat df = new DecimalFormat("#.00");
         return df.format(pay) + "";
     }
+
+    @Override
+    public TransRecordDTO getTransRecord(String transId) {
+        TransRecordDTO dto = transRecordMapper.getTransRecord(transId);
+        return dto;
+    }
 }
