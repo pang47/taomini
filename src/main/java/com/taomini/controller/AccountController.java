@@ -98,6 +98,9 @@ public class AccountController {
         } catch (TaoMiniException e) {
             LOGGER.error("查询出错:", e);
             result.setSucc(false);
+        } catch (Exception e){
+            LOGGER.error("查询出错:", e);
+            result.setSucc(false);
         }
 
         return result;
