@@ -138,4 +138,25 @@ public class TransRecordController {
         return result;
     }
 
+    @RequestMapping(value = "/updateTransRerord", method = RequestMethod.POST)
+    @ResponseBody
+    public Result updateTransRerord(TransRecordDTO dto){
+        Result result = new Result();
+
+
+
+        return result;
+    }
+
+    @RequestMapping(value = "/deleteTransRerord", method = RequestMethod.POST)
+    @ResponseBody
+    public Result deleteTransRerord(String transId){
+        Result result = new Result();
+
+        result.setSucc(true);
+        result.setData(transRecordService.getTransRecord(transId));
+
+        return result;
+    }
+
 }

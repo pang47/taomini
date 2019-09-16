@@ -171,6 +171,8 @@ public class TransRecordServiceImpl implements ITransRecordService {
     @Override
     public TransRecordDTO getTransRecord(String transId) {
         TransRecordDTO dto = transRecordMapper.getTransRecord(transId);
+        dto.setTransTypeName(TaoMiniUtils.getTransTypeName(dto.getTransType()));
+        dto.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(dto.getTransType()));
         return dto;
     }
 }
