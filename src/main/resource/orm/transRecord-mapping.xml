@@ -59,7 +59,7 @@
 		STATUS
 		FROM
 		TRANSRECORD
-		WHERE OPEN_ID = #{user,jdbcType=VARCHAR} AND INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0
+		WHERE OPEN_ID = #{user,jdbcType=VARCHAR} AND INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0 AND STATUS = '1'
 		ORDER BY TRANS_DATE DESC, CRT_DATE DESC, CRT_TIME DESC
 	</select>
 
@@ -75,7 +75,7 @@
 		REMARK
 		FROM
 		TRANSRECORD
-		WHERE OPEN_ID = #{user,jdbcType=VARCHAR}
+		WHERE OPEN_ID = #{user,jdbcType=VARCHAR} AND STATUS = '1'
 		ORDER BY TRANS_DATE DESC
 	</select>
 
@@ -98,7 +98,7 @@
 		update TRANSRECORD SET STATUS = #{status,jdbcType=VARCHAR} where TRANS_ID = #{transId,jdbcType=VARCHAR}
 	</update>
 
-	<update id="updateTransRecordStatus" parameterType="com.taomini.model.TransRecordDTO">
+	<update id="updateTransRecord" parameterType="com.taomini.model.TransRecordDTO">
 		update TRANSRECORD SET
 		MONEY = #{money, jdbcType=VARCHAR},
 		REMARK = #{remark, jdbcType=VARCHAR},
