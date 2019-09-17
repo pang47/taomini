@@ -24,6 +24,7 @@ public class TransRecordDTO implements Serializable {
     private String crtDate;     //创建日期
     private String crtTime;     //创建时间
     private String imageUrl;    //界面展示用URL
+    private String status;      //状态
 
     public String getTransId() {
         return transId;
@@ -119,5 +120,13 @@ public class TransRecordDTO implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

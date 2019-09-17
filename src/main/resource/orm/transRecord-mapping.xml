@@ -16,6 +16,7 @@
 		<id column="REMARK" jdbcType="VARCHAR" property="remark" />
 		<id column="CRT_DATE" jdbcType="VARCHAR" property="crtDate" />
 		<id column="CRT_TIME" jdbcType="VARCHAR" property="crtTime" />
+		<id column="STATUS" jdbcType="VARCHAR" property="status" />
 	</resultMap>
 
 	<insert id="saveRecord" parameterType="com.taomini.model.TransRecordDTO">
@@ -54,7 +55,8 @@
 		TRANS_DATE,
 		TRANS_TIME,
 		TRANS_TYPE,
-		REMARK
+		REMARK,
+		STATUS
 		FROM
 		TRANSRECORD
 		WHERE OPEN_ID = #{user,jdbcType=VARCHAR} AND INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0
@@ -91,5 +93,17 @@
 		TRANSRECORD
 		WHERE TRANS_ID = #{transId}
 	</select>
+
+	<update id="updateTransRecordStatus" parameterType="com.taomini.model.TransRecordDTO">
+		update TRANSRECORD SET STATUS = #{status,jdbcType=VARCHAR} where TRANS_ID = #{transId,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateTransRecordStatus" parameterType="com.taomini.model.TransRecordDTO">
+		update TRANSRECORD SET
+		MONEY = #{money, jdbcType=VARCHAR},
+		REMARK = #{remark, jdbcType=VARCHAR},
+		TRANS_DATE = #{transDate, jdbcType=VARCHAR}
+		where TRANS_ID = #{transId,jdbcType=VARCHAR}
+	</update>
 
 </mapper>

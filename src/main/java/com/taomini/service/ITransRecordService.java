@@ -17,4 +17,8 @@ public interface ITransRecordService {
     String getPayByMonth(String month);
 
     TransRecordDTO getTransRecord(String transId);
+
+    void deleteTransRecord(String transId);
+
+    void updateTransRecord(TransRecordDTO dto);
 }

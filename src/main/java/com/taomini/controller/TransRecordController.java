@@ -142,8 +142,14 @@ public class TransRecordController {
     @ResponseBody
     public Result updateTransRerord(TransRecordDTO dto){
         Result result = new Result();
-
-
+        LOGGER.info("更新数据:{}", JSON.toJSONString(dto));
+        try{
+            result.setSucc(true);
+            transRecordService.updateTransRecord(dto);
+        }catch (Exception e){
+            LOGGER.error("更新失败,{}", e);
+            result.setSucc(false);
+        }
 
         return result;
     }
@@ -153,8 +159,13 @@ public class TransRecordController {
     public Result deleteTransRerord(String transId){
         Result result = new Result();
 
-        result.setSucc(true);
-        result.setData(transRecordService.getTransRecord(transId));
+        try{
+            result.setSucc(true);
+            transRecordService.deleteTransRecord(transId);
+        }catch (Exception e){
+            LOGGER.error("删除失败,{}", transId, e);
+            result.setSucc(false);
+        }
 
         return result;
     }

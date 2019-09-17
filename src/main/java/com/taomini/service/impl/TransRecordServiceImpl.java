@@ -7,6 +7,8 @@ import com.taomini.model.vo.TransRecordVO;
 import com.taomini.service.ITransRecordService;
 import com.taomini.util.DateUtil;
 import com.taomini.util.TaoMiniUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,8 @@ import java.util.UUID;
  */
 @Service
 public class TransRecordServiceImpl implements ITransRecordService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TransRecordServiceImpl.class);
 
     @Autowired
     private ITransRecordMapper transRecordMapper;
@@ -174,5 +178,18 @@ public class TransRecordServiceImpl implements ITransRecordService {
         dto.setTransTypeName(TaoMiniUtils.getTransTypeName(dto.getTransType()));
         dto.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(dto.getTransType()));
         return dto;
+    }
+
+    @Override
+    public void deleteTransRecord(String transId) {
+        TransRecordDTO dto = new TransRecordDTO();
+        dto.setTransId(transId);
+        dto.setStatus("0");
+        transRecordMapper.updateTransRecordStatus(dto);
+    }
+
+    @Override
+    public void updateTransRecord(TransRecordDTO dto) {
+        transRecordMapper.updateTransRecord(dto);
     }
 }

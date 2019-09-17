@@ -20,4 +20,8 @@ public interface ITransRecordMapper {
     List<TransRecordDTO> getRecordByUser(TransRecordDTO dto);
 
     TransRecordDTO getTransRecord(String transId);
+
+    int updateTransRecordStatus(TransRecordDTO dto);
+
+    int updateTransRecord(TransRecordDTO dto);
 }
