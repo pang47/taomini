@@ -12,4 +12,6 @@ public interface IPushMessageService {
     void saveFormInfo(FormInfoDTO dto);
 
     void pushMessage(String templeteId);
+
+    void pushMessage(String[] data, String templeteId);
 }

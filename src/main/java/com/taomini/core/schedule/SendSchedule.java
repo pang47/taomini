@@ -1,13 +1,17 @@
 package com.taomini.core.schedule;
 
 import com.taomini.core.constant.TaoMiniConstant;
+import com.taomini.model.TransRecordDTO;
 import com.taomini.service.IPushMessageService;
+import com.taomini.service.ITransRecordService;
 import com.taomini.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 定时发送任务
@@ -24,6 +28,9 @@ public class SendSchedule {
     @Autowired
     IPushMessageService pushMessageService;
 
+    @Autowired
+    ITransRecordService transRecordService;
+
     /**
      * 每晚23点发送
      *
@@ -34,6 +41,34 @@ public class SendSchedule {
 
         try{
             pushMessageService.pushMessage(TaoMiniConstant.TEMPLETEIDTRANS);
+        }catch (Exception e){
+            LOGGER.error("发送失败:{}", e.getMessage());
+            LOGGER.error("失败", e);
+        }
+        LOGGER.info("发送成功");
+
+    }
+
+    @Scheduled(cron = "0 05 23 ? * Sun")
+    public void sendWeekMsg(){
+        LOGGER.info("开始发送周交易报,{},{}", DateUtil.getCurrDate(), DateUtil.getCurrTime());
+
+        try{
+            pushMessageService.pushMessage(transRecordService.getTransReportWeek(), TaoMiniConstant.TEMPLETEIDWEEK);
+        }catch (Exception e){
+            LOGGER.error("发送失败:{}", e.getMessage());
+            LOGGER.error("失败", e);
+        }
+        LOGGER.info("发送成功");
+
+    }
+
+
+    public void sendMonth(){
+        LOGGER.info("开始发送月交易报,{},{}", DateUtil.getCurrDate(), DateUtil.getCurrTime());
+
+        try{
+            pushMessageService.pushMessage(new String[]{}, TaoMiniConstant.TEMPLETEIDTRANS);
         }catch (Exception e){
             LOGGER.error("发送失败:{}", e.getMessage());
             LOGGER.error("失败", e);

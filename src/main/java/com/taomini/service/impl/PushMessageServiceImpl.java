@@ -116,6 +116,32 @@ public class PushMessageServiceImpl implements IPushMessageService {
 
     }
 
+    @Override
+    public void pushMessage(String[] data, String templeteId) {
+        FormInfoDTO taoForm = formInfoMapper.getFormInfoByOpenId(UserConstant.TAO);
+        if (taoForm == null) {
+            LOGGER.info("推送信息不足,TAO");
+        }else{
+            taoForm.setPushDate(DateUtil.getCurrDate());
+            taoForm.setPushTime(DateUtil.getCurrTime());
+            taoForm.setPushMsg(getSendMsg(data).toJSONString());
+            taoForm.setTemplete(templeteId);
+            taoForm = WxApiUtils.pushMessage(taoForm);
+        }
+
+        FormInfoDTO SQForm = formInfoMapper.getFormInfoByOpenId(UserConstant.SIQI);
+        if (SQForm == null) {
+            LOGGER.info("推送信息不足,SIQI");
+        } else {
+            SQForm.setPushDate(DateUtil.getCurrDate());
+            SQForm.setPushTime(DateUtil.getCurrTime());
+            SQForm.setPushMsg(getSendMsg(data).toJSONString());
+            SQForm.setTemplete(templeteId);
+            SQForm = WxApiUtils.pushMessage(SQForm);
+            formInfoMapper.updateFormInfo(SQForm);
+        }
+    }
+
     private JSONObject getSendMsg(String[] strs){
         JSONObject data = new JSONObject();
         for (int i = 0; i < strs.length; i++) {

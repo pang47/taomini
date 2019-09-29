@@ -17,6 +17,8 @@ public class TaoMiniConstant {
     public static String FORMSTATUSFAIL = "2";
 
     public static String TEMPLETEIDTRANS = "-YXdQmG1_te6e3YyOqYH1ghaLFOzf56jk5nr9awRa0k";
+    public static String TEMPLETEIDWEEK = "JP94WilL6XkTz06BwtV2AINedpqkTSlDNZD7Uxc_2iQ"; //周记账通知
+    public static String TEMPLETEIDMONTH = "RhNJZ8ZQYM8FX6JDZpwdMFIO4RUin9ifpM04sZtBpSc"; //月记账通知
 
 
 }

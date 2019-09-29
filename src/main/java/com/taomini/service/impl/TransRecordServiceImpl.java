@@ -192,4 +192,39 @@ public class TransRecordServiceImpl implements ITransRecordService {
     public void updateTransRecord(TransRecordDTO dto) {
         transRecordMapper.updateTransRecord(dto);
     }
+
+    @Override
+    public String[] getTransReportWeek() {
+        String[] strs = {};
+        StringBuffer sb = new StringBuffer();
+
+        double totalMoney = 0;
+
+        for(int i=0; i<7; i++){
+            String date = DateUtil.getDateByInput(0-i);
+            TransRecordDTO tao = new TransRecordDTO();
+            tao.setUser(UserConstant.TAO);
+            tao.setTransDate(date);
+            List<TransRecordDTO> taos = transRecordMapper.getRecordByUserAndDate(tao);
+
+            for(TransRecordDTO dto : taos){
+                totalMoney += Double.parseDouble(dto.getMoney());
+            }
+
+            TransRecordDTO pang = new TransRecordDTO();
+            pang.setUser(UserConstant.SIQI);
+            pang.setTransDate(date);
+            List<TransRecordDTO> pangs = transRecordMapper.getRecordByUserAndDate(pang);
+
+            for(TransRecordDTO dto : pangs){
+                totalMoney += Double.parseDouble(dto.getMoney());
+            }
+        }
+        strs[0] = DateUtil.getCurrDate();
+        sb.append("本周花销:");
+        sb.append(totalMoney);
+        strs[1] = sb.toString();
+
+        return strs;
+    }
 }

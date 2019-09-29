@@ -21,4 +21,6 @@ public interface ITransRecordService {
     void deleteTransRecord(String transId);
 
     void updateTransRecord(TransRecordDTO dto);
+
+    String[] getTransReportWeek();
 }

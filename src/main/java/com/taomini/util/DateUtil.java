@@ -60,7 +60,18 @@ public class DateUtil {
         return weekDays[w];
     }
 
+    public static String getDateByInput(int delay){
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        Calendar calendar = Calendar.getInstance();
+        Date now = new Date();
+        //一周以前
+        calendar.setTime(now);
+        calendar.add(Calendar.DATE, delay);
+        String formatDate = format.format(calendar.getTime());
+        return formatDate;
+    }
+
     public static void main(String[] args) {
-        System.out.println(formatDateMMDD("20190907"));
+        System.out.println(getDateByInput(-7));
     }
 }
