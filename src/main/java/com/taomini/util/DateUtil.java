@@ -71,7 +71,20 @@ public class DateUtil {
         return formatDate;
     }
 
-    public static void main(String[] args) {
-        System.out.println(getDateByInput(-7));
+    public static String getLastMonth() {
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date); // 设置为当前时间
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1); // 设置为上一个月
+        date = calendar.getTime();
+        String accDate = format.format(date);
+        return accDate;
     }
+
+    public static void main(String[] args) {
+        System.out.println(getLastMonth());
+    }
+
+
 }

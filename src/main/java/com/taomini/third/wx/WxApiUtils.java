@@ -72,6 +72,7 @@ public class WxApiUtils {
 
 
     public static FormInfoDTO pushMessage(FormInfoDTO form){
+        logger.info("发送推送信息:{}", JSON.toJSONString(form));
         String sendUrl = sendMsgUrl.replace("ACCESS_TOKEN", getAccessToken());
         JSONObject sendJson = new JSONObject();
         sendJson.put("touser", form.getOpenId());
@@ -92,6 +93,8 @@ public class WxApiUtils {
             form.setErrMsg(e.getMessage());
             logger.error("发送推送消息失败,{}", form.getFormId(), e);
         }
+
+        logger.info("发送推送结束:{}", form.getFormId());
 
         return form;
     }

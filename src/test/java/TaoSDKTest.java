@@ -1,5 +1,12 @@
+import com.taomini.core.schedule.SendSchedule;
+import com.taomini.service.ITransRecordService;
 import com.taomini.util.HttpUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.terracotta.context.annotations.ContextParent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +20,15 @@ import java.util.Map;
  * @since 1.0.0
  */
 
+@RunWith(SpringRunner.class)
+@ContextConfiguration({"classpath:spring/spring-all.xml"})
 public class TaoSDKTest {
+
+    @Autowired
+    SendSchedule sendSchedule;
+
+    @Autowired
+    ITransRecordService transRecordService;
 
     @Test
     public void getPayMonth(){
@@ -32,5 +47,10 @@ public class TaoSDKTest {
             }
         }
 
+    }
+
+    @Test
+    public void testSchedule(){
+        sendSchedule.sendMonth();
     }
 }

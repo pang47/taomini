@@ -23,4 +23,6 @@ public interface ITransRecordService {
     void updateTransRecord(TransRecordDTO dto);
 
     String[] getTransReportWeek();
+
+    String[] getTransReportMonth();
 }

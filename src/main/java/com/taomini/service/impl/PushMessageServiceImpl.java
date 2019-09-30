@@ -129,17 +129,17 @@ public class PushMessageServiceImpl implements IPushMessageService {
             taoForm = WxApiUtils.pushMessage(taoForm);
         }
 
-        FormInfoDTO SQForm = formInfoMapper.getFormInfoByOpenId(UserConstant.SIQI);
-        if (SQForm == null) {
-            LOGGER.info("推送信息不足,SIQI");
-        } else {
-            SQForm.setPushDate(DateUtil.getCurrDate());
-            SQForm.setPushTime(DateUtil.getCurrTime());
-            SQForm.setPushMsg(getSendMsg(data).toJSONString());
-            SQForm.setTemplete(templeteId);
-            SQForm = WxApiUtils.pushMessage(SQForm);
-            formInfoMapper.updateFormInfo(SQForm);
-        }
+//        FormInfoDTO SQForm = formInfoMapper.getFormInfoByOpenId(UserConstant.SIQI);
+//        if (SQForm == null) {
+//            LOGGER.info("推送信息不足,SIQI");
+//        } else {
+//            SQForm.setPushDate(DateUtil.getCurrDate());
+//            SQForm.setPushTime(DateUtil.getCurrTime());
+//            SQForm.setPushMsg(getSendMsg(data).toJSONString());
+//            SQForm.setTemplete(templeteId);
+//            SQForm = WxApiUtils.pushMessage(SQForm);
+//            formInfoMapper.updateFormInfo(SQForm);
+//        }
     }
 
     private JSONObject getSendMsg(String[] strs){

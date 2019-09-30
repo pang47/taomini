@@ -1,5 +1,6 @@
 package com.taomini.service.impl;
 
+import com.taomini.core.constant.TransTypeEnum;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.core.dao.ITransRecordMapper;
 import com.taomini.model.TransRecordDTO;
@@ -13,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  *
@@ -195,7 +194,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
     @Override
     public String[] getTransReportWeek() {
-        String[] strs = {};
+        String[] strs = new String[2];
         StringBuffer sb = new StringBuffer();
 
         double totalMoney = 0;
@@ -226,5 +225,96 @@ public class TransRecordServiceImpl implements ITransRecordService {
         strs[1] = sb.toString();
 
         return strs;
+    }
+
+    @Override
+    public String[] getTransReportMonth() {
+        String[] strs = new String[3];
+        //统计时间，本月支出，记账数目
+
+        strs[0] = format(DateUtil.getCurrDate() + " " + DateUtil.getCurrTime());
+
+        //获取Tao
+        String month = DateUtil.getCurrDate().substring(0, 6);
+        TransRecordDTO dto = new TransRecordDTO();
+        dto.setTransDate(month);
+        dto.setUser(UserConstant.TAO);
+        List<TransRecordDTO> list = transRecordMapper.getRecordByUserAndDate(dto);
+
+        //获取SQ
+        dto.setUser(UserConstant.SIQI);
+        List<TransRecordDTO> qlist = transRecordMapper.getRecordByUserAndDate(dto);
+
+        strs[2] = (list.size() + qlist.size()) + "笔";
+
+        StringBuffer detail = new StringBuffer();
+        Map<String, String> detailMap = new HashMap();
+        for(TransRecordDTO item : list){
+
+            if(!item.getTransType().equals(TransTypeEnum.BREAKFASTTRANS.getTransType()) &&
+                !item.getTransType().equals(TransTypeEnum.LUNCHTRANS.getTransType()) && !item.getTransType().equals(TransTypeEnum.DINNERTRANS.getTransType())){
+
+                if(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())) == null){
+                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), item.getMoney());
+                }else{
+                    double money = Double.parseDouble(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())));
+                    money += Double.parseDouble(item.getMoney());
+                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), money+"");
+                }
+                continue;
+            }
+
+            //计算日常伙食
+            if(detailMap.get("daily") == null){
+                detailMap.put("daily", item.getMoney());
+            }else{
+                double money = Double.parseDouble(detailMap.get("daily"));
+                money += Double.parseDouble(item.getMoney());
+                detailMap.put("daily", money+"");
+            }
+        }
+
+        for(TransRecordDTO item : qlist){
+            if(!item.getTransType().equals(TransTypeEnum.BREAKFASTTRANS.getTransType()) &&
+                    !item.getTransType().equals(TransTypeEnum.LUNCHTRANS.getTransType()) && !item.getTransType().equals(TransTypeEnum.DINNERTRANS.getTransType())){
+
+                if(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())) == null){
+                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), item.getMoney());
+                }else{
+                    double money = Double.parseDouble(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())));
+                    money += Double.parseDouble(item.getMoney());
+                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), money+"");
+                }
+                continue;
+            }
+
+            //计算日常伙食
+            if(detailMap.get("daily") == null){
+                detailMap.put("daily", item.getMoney());
+            }else{
+                double money = Double.parseDouble(detailMap.get("daily"));
+                money += Double.parseDouble(item.getMoney());
+                detailMap.put("daily", money+"");
+            }
+        }
+
+        detail.append("具体消费如下:\n");
+        for(String key : detailMap.keySet()){
+            if(key.equals("daily")){
+                detail.append("日常伙食:" + detailMap.get(key) + "元。");
+            }else{
+                detail.append(key + detailMap.get(key) + "元。");
+            }
+            detail.append("\n");
+        }
+        detail.append("总计支出:" + this.getPayByMonth(month));
+        strs[1] = detail.toString();
+
+        return strs;
+    }
+
+    private String format(String date){
+        String[] dates = date.split(" ");
+        return dates[0].substring(0,4) + "年" + dates[0].substring(4,6) + "月" + dates[0].substring(6, 8) + "日 " + dates[1].substring(0, 2) + ":" + dates[1].substring(2,4) + ":" + dates[1].substring(4,6);
     }
 }
