@@ -147,10 +147,26 @@ public class TransRecordServiceImpl implements ITransRecordService {
                 total = 0;
                 //加上本轮信息
                 sameDate.add(trans);
-                total += Double.parseDouble(trans.getMoney());
+                //日统计统计收入
+                boolean isIncome = false;
+                for(String transType : TaoMiniConstant.NOPAYTRANS){
+                    if(transType.equals(trans.getTransType())){
+                        isIncome = true;
+                    }
+                }
+                if(!isIncome)
+                    total += Double.parseDouble(trans.getMoney());
             }else{
                 sameDate.add(trans);
-                total += Double.parseDouble(trans.getMoney());
+                //日统计统计收入
+                boolean isIncome = false;
+                for(String transType : TaoMiniConstant.NOPAYTRANS){
+                    if(transType.equals(trans.getTransType())){
+                        isIncome = true;
+                    }
+                }
+                if(!isIncome)
+                    total += Double.parseDouble(trans.getMoney());
             }
         }
 
