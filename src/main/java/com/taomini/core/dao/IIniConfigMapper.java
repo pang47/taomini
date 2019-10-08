@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IIniConfigMapper {
     List<IniConfigDTO> getIniConfig(IniConfigDTO iniConfigDTO);
+
+    IniConfigDTO getIniConfig4One(IniConfigDTO iniConfigDTO);
 }

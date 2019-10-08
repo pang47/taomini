@@ -42,9 +42,7 @@ public class IniConfigServiceImpl implements IIniConfigService {
         iniConfigDTO.setIniClass(iniClass);
         iniConfigDTO.setIniCode(iniCode);
 
-        List<IniConfigDTO> list = iIniConfigMapper.getIniConfig(iniConfigDTO);
-
-        return list.get(0);
+        return iIniConfigMapper.getIniConfig4One(iniConfigDTO);
     }
 
 
