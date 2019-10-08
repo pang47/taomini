@@ -1,5 +1,6 @@
 package com.taomini.service.impl;
 
+import com.taomini.core.constant.TaoMiniConstant;
 import com.taomini.core.constant.TransTypeEnum;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.core.dao.ITransRecordMapper;
@@ -159,12 +160,24 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
         List<TransRecordDTO> list = transRecordMapper.getRecordByUserAndDate(dto);
         for(TransRecordDTO res : list){
+            //计算支出，排除收入交易
+            for(String transType : TaoMiniConstant.NOPAYTRANS){
+                if(transType.equals(res.getTransType())){
+                    continue;
+                }
+            }
             pay += Double.parseDouble(res.getMoney());
         }
 
         dto.setUser(UserConstant.SIQI);
         List<TransRecordDTO> listq = transRecordMapper.getRecordByUserAndDate(dto);
         for(TransRecordDTO res : listq){
+            //计算支出，排除收入交易
+            for(String transType : TaoMiniConstant.NOPAYTRANS){
+                if(transType.equals(res.getTransType())){
+                    continue;
+                }
+            }
             pay += Double.parseDouble(res.getMoney());
         }
         DecimalFormat df = new DecimalFormat("#.00");
@@ -311,6 +324,37 @@ public class TransRecordServiceImpl implements ITransRecordService {
         strs[1] = detail.toString();
 
         return strs;
+    }
+
+    @Override
+    public String getIncomeByMonth(String month) {
+        TransRecordDTO dto = new TransRecordDTO();
+        dto.setTransDate(month);
+        dto.setUser(UserConstant.TAO);
+        double pay = 0;
+
+        List<TransRecordDTO> list = transRecordMapper.getRecordByUserAndDate(dto);
+        for(TransRecordDTO res : list){
+            //计算收入
+            for(String transType : TaoMiniConstant.NOPAYTRANS){
+                if(transType.equals(res.getTransType())){
+                    pay += Double.parseDouble(res.getMoney());
+                }
+            }
+        }
+
+        dto.setUser(UserConstant.SIQI);
+        List<TransRecordDTO> listq = transRecordMapper.getRecordByUserAndDate(dto);
+        for(TransRecordDTO res : listq){
+            //计算收入
+            for(String transType : TaoMiniConstant.NOPAYTRANS){
+                if(transType.equals(res.getTransType())){
+                    pay += Double.parseDouble(res.getMoney());
+                }
+            }
+        }
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(pay) + "";
     }
 
     private String format(String date){

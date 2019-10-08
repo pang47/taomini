@@ -25,4 +25,6 @@ public interface ITransRecordService {
     String[] getTransReportWeek();
 
     String[] getTransReportMonth();
+
+    String getIncomeByMonth(String month);
 }

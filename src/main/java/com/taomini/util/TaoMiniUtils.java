@@ -30,7 +30,8 @@ public class TaoMiniUtils {
             "https://www.pangt.xyz/jujia.png",
             "https://www.pangt.xyz/other.png",
             "https://www.pangt.xyz/supermarket.png",
-            "https://www.pangt.xyz/taobao.png"};
+            "https://www.pangt.xyz/taobao.png",
+            "https://www.pangt.xyz/income.png"};
     
     public static String getTransTypeName(String transType){
         String retMsg = "无对应交易类型";
@@ -70,6 +71,8 @@ public class TaoMiniUtils {
             retMsg = TransTypeEnum.TAOBAOTRANS.getTransTypeName();
         }else if(TransTypeEnum.SUPERMARKETTRANS.getTransType().equals(transType)){
             retMsg = TransTypeEnum.SUPERMARKETTRANS.getTransTypeName();
+        }else if(TransTypeEnum.INCOMETRANS.getTransType().equals(transType)){
+            retMsg = TransTypeEnum.INCOMETRANS.getTransTypeName();
         }
         return retMsg;
     }

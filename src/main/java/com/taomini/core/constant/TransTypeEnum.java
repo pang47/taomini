@@ -19,6 +19,8 @@ public enum TransTypeEnum {
     OHTERTRANS("16", "额外"),
     SUPERMARKETTRANS("17", "超市"),
     TAOBAOTRANS("18", "淘宝"),
+
+    INCOMETRANS("19", "收入")
     ;
 
     private String transType;

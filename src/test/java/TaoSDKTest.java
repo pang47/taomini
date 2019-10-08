@@ -53,4 +53,9 @@ public class TaoSDKTest {
     public void testSchedule(){
         sendSchedule.sendMonth();
     }
+
+    @Test
+    public void testIncom(){
+        System.out.println(transRecordService.getIncomeByMonth("201909"));
+    }
 }

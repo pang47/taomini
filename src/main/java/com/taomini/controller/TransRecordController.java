@@ -104,6 +104,17 @@ public class TransRecordController {
         return result;
     }
 
+    @RequestMapping(value = "/getIncomeByMonth", method = RequestMethod.POST)
+    @ResponseBody
+    public Result getIncomeByMonth(String month){
+        Result result = new Result();
+
+        result.setSucc(true);
+        result.setData(transRecordService.getPayByMonth(month));
+
+        return result;
+    }
+
     @RequestMapping(value = "/getTransTypeList", method = RequestMethod.POST)
     @ResponseBody
     public Result getTransTypeList(){
@@ -112,7 +123,7 @@ public class TransRecordController {
         result.setSucc(true);
 
         JSONArray arr = new JSONArray();
-        for(int i=0; i<18; i++){
+        for(int i=0; i<19; i++){
             JSONObject object = new JSONObject();
             int transType = i+1;
             object.put("transType", transType);
