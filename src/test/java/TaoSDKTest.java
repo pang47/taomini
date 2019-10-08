@@ -56,6 +56,6 @@ public class TaoSDKTest {
 
     @Test
     public void testIncom(){
-        System.out.println(transRecordService.getIncomeByMonth("201909"));
+        System.out.println(transRecordService.getPayByMonth("201910"));
     }
 }

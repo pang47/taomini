@@ -82,10 +82,24 @@ public class TransRecordServiceImpl implements ITransRecordService {
                 total = 0;
                 //加上本轮信息
                 sameDate.add(trans);
-                total += Double.parseDouble(trans.getMoney());
+                boolean isIncome = false;
+                for(String transType : TaoMiniConstant.NOPAYTRANS){
+                    if(transType.equals(trans.getTransType())){
+                        isIncome = true;
+                    }
+                }
+                if(!isIncome)
+                    total += Double.parseDouble(trans.getMoney());
             }else{
                 sameDate.add(trans);
-                total += Double.parseDouble(trans.getMoney());
+                boolean isIncome = false;
+                for(String transType : TaoMiniConstant.NOPAYTRANS){
+                    if(transType.equals(trans.getTransType())){
+                        isIncome = true;
+                    }
+                }
+                if(!isIncome)
+                    total += Double.parseDouble(trans.getMoney());
             }
         }
 
@@ -161,11 +175,14 @@ public class TransRecordServiceImpl implements ITransRecordService {
         List<TransRecordDTO> list = transRecordMapper.getRecordByUserAndDate(dto);
         for(TransRecordDTO res : list){
             //计算支出，排除收入交易
+            boolean isIncomeTrans = false;
             for(String transType : TaoMiniConstant.NOPAYTRANS){
                 if(transType.equals(res.getTransType())){
-                    continue;
+                    isIncomeTrans = true;
                 }
             }
+            if(isIncomeTrans)
+                continue;
             pay += Double.parseDouble(res.getMoney());
         }
 
@@ -173,11 +190,14 @@ public class TransRecordServiceImpl implements ITransRecordService {
         List<TransRecordDTO> listq = transRecordMapper.getRecordByUserAndDate(dto);
         for(TransRecordDTO res : listq){
             //计算支出，排除收入交易
+            boolean isIncomeTrans = false;
             for(String transType : TaoMiniConstant.NOPAYTRANS){
                 if(transType.equals(res.getTransType())){
-                    continue;
+                    isIncomeTrans = true;
                 }
             }
+            if(isIncomeTrans)
+                continue;
             pay += Double.parseDouble(res.getMoney());
         }
         DecimalFormat df = new DecimalFormat("#.00");
