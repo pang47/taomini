@@ -399,14 +399,20 @@ public class TransRecordServiceImpl implements ITransRecordService {
         List<IniConfigDTO> iniConfigDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass());
         JSONArray arr = new JSONArray();
 
+        List<IniConfigDTO> imageDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass());
+
+        Map<String , String> imgMap = new HashMap<>();
+        for(IniConfigDTO imgDto : imageDTOS){
+            imgMap.put(imgDto.getIniCode(), imgDto.getIniCodeValue());
+        }
+
         for(IniConfigDTO dto : iniConfigDTOS){
             JSONObject object = new JSONObject();
             String transType = dto.getIniCode();
             object.put("transType", transType);
             object.put("transTypeName", dto.getIniCodeValue());
-            IniConfigDTO imgDto = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), transType);
-            object.put("imageUrl", imgDto.getIniCodeValue());
-            object.put("imageUrlActive", TaoMiniUtils.getTransActiveImageUrl(imgDto.getIniCodeValue()));
+            object.put("imageUrl", imgMap.get(transType));
+            object.put("imageUrlActive", TaoMiniUtils.getTransActiveImageUrl(imgMap.get(transType)));
             arr.add(object);
         }
 
