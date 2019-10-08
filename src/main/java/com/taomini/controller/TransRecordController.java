@@ -110,7 +110,7 @@ public class TransRecordController {
         Result result = new Result();
 
         result.setSucc(true);
-        result.setData(transRecordService.getPayByMonth(month));
+        result.setData(transRecordService.getIncomeByMonth(month));
 
         return result;
     }
