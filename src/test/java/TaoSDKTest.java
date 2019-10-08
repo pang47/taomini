@@ -1,3 +1,4 @@
+import com.taomini.core.constant.UserConstant;
 import com.taomini.core.schedule.SendSchedule;
 import com.taomini.service.IIniConfigService;
 import com.taomini.service.ITransRecordService;
@@ -59,6 +60,6 @@ public class TaoSDKTest {
 
     @Test
     public void testIncom(){
-        System.out.println(transRecordService.getTransList());
+        System.out.println(transRecordService.getRecordByUserAndDatePage(UserConstant.TAO, "201910"));
     }
 }
