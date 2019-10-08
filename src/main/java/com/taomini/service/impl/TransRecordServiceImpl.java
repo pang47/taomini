@@ -369,6 +369,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         dto.setUser(UserConstant.TAO);
         double pay = 0;
 
+        //SQL中有UNION语句，只需要查询一次就足够了
         List<TransRecordDTO> list = transRecordMapper.getRecordByUserAndDate(dto);
         for(TransRecordDTO res : list){
             //计算收入
@@ -379,16 +380,6 @@ public class TransRecordServiceImpl implements ITransRecordService {
             }
         }
 
-        dto.setUser(UserConstant.SIQI);
-        List<TransRecordDTO> listq = transRecordMapper.getRecordByUserAndDate(dto);
-        for(TransRecordDTO res : listq){
-            //计算收入
-            for(String transType : TaoMiniConstant.NOPAYTRANS){
-                if(transType.equals(res.getTransType())){
-                    pay += Double.parseDouble(res.getMoney());
-                }
-            }
-        }
         DecimalFormat df = new DecimalFormat("#.00");
         return df.format(pay) + "";
     }
