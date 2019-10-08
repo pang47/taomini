@@ -8,4 +8,6 @@ public interface IIniConfigService {
 
     List<IniConfigDTO> getIniConfig(String iniType, String iniClass);
 
+    IniConfigDTO getIniConfig4One(String iniType, String iniClass, String iniCode);
+
 }

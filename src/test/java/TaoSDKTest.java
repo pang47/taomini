@@ -59,6 +59,6 @@ public class TaoSDKTest {
 
     @Test
     public void testIncom(){
-        System.out.println(iIniConfigService.getIniConfig("1001", "01"));
+        System.out.println(transRecordService.getTransList());
     }
 }

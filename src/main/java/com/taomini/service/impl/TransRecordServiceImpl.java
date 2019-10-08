@@ -400,9 +400,10 @@ public class TransRecordServiceImpl implements ITransRecordService {
             JSONObject object = new JSONObject();
             String transType = dto.getIniCode();
             object.put("transType", transType);
-            object.put("transTypeName", TaoMiniUtils.getTransTypeName(transType+""));
-            object.put("imageUrl", TaoMiniUtils.getTransImageUrl(transType+""));
-            object.put("imageUrlActive", TaoMiniUtils.getTransActiveImageUrl(transType + ""));
+            object.put("transTypeName", dto.getIniCodeValue());
+            IniConfigDTO imgDto = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), transType);
+            object.put("imageUrl", imgDto.getIniCodeValue());
+            object.put("imageUrlActive", TaoMiniUtils.getTransActiveImageUrl(imgDto.getIniCodeValue()));
             arr.add(object);
         }
 

@@ -81,8 +81,7 @@ public class TaoMiniUtils {
         return imgList[Integer.parseInt(transType) - 1];
     }
 
-    public static String getTransActiveImageUrl(String transType){
-        String imageUrl = imgList[Integer.parseInt(transType) - 1];
+    public static String getTransActiveImageUrl(String imageUrl){
         int index = imageUrl.lastIndexOf(".");
         return imageUrl.substring(0, index) + "-active." + imageUrl.substring(index+1);
     }

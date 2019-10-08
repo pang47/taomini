@@ -7,7 +7,6 @@ import com.taomini.service.IIniConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -34,4 +33,19 @@ public class IniConfigServiceImpl implements IIniConfigService {
 
         return list;
     }
+
+    @Override
+    public IniConfigDTO getIniConfig4One(String iniType, String iniClass, String iniCode) {
+
+        IniConfigDTO iniConfigDTO = new IniConfigDTO();
+        iniConfigDTO.setIniType(iniType);
+        iniConfigDTO.setIniClass(iniClass);
+        iniConfigDTO.setIniCode(iniCode);
+
+        List<IniConfigDTO> list = iIniConfigMapper.getIniConfig(iniConfigDTO);
+
+        return list.get(0);
+    }
+
+
 }
