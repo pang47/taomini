@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 通过namespace来找到对应的sql语句 -->
+<mapper namespace="com.taomini.core.dao.IIniConfigMapper">
+	<!-- 映射对象 -->
+	<resultMap type="com.taomini.model.IniConfigDTO" id="BaseResultMap">
+		<id column="INI_TYPE" jdbcType="VARCHAR" property="iniType" />
+		<id column="INI_TYPE_NAME" jdbcType="VARCHAR" property="iniTypeName" />
+		<id column="INI_CLASS" jdbcType="VARCHAR" property="iniClass" />
+		<id column="INI_CLASS_NAME" jdbcType="VARCHAR" property="iniClassName" />
+		<id column="INI_CODE" jdbcType="VARCHAR" property="iniCode" />
+		<id column="INI_CODE_VALUE" jdbcType="VARCHAR" property="iniCodeValue" />
+	</resultMap>
+
+	<select id="getIniConfig" parameterType="com.taomini.model.IniConfigDTO" resultMap="BaseResultMap">
+		SELECT
+		INI_TYPE,
+		INI_TYPE_NAME,
+		INI_CLASS,
+		INI_CLASS_NAME,
+		INI_CODE,
+		INI_CODE_VALUE
+		FROM
+		INI_CONFIG
+		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR}
+	</select>
+
+</mapper>

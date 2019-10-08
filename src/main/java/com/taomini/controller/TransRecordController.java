@@ -2,15 +2,12 @@ package com.taomini.controller;
 
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.taomini.core.common.Result;
 import com.taomini.core.common.TaoMiniException;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.model.TransRecordDTO;
 import com.taomini.model.vo.TransRecordVO;
 import com.taomini.service.ITransRecordService;
-import com.taomini.util.TaoMiniUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,18 +119,7 @@ public class TransRecordController {
 
         result.setSucc(true);
 
-        JSONArray arr = new JSONArray();
-        for(int i=0; i<19; i++){
-            JSONObject object = new JSONObject();
-            int transType = i+1;
-            object.put("transType", transType);
-            object.put("transTypeName", TaoMiniUtils.getTransTypeName(transType+""));
-            object.put("imageUrl", TaoMiniUtils.getTransImageUrl(transType+""));
-            object.put("imageUrlActive", TaoMiniUtils.getTransActiveImageUrl(transType + ""));
-            arr.add(object);
-        }
-
-        result.setData(arr);
+        result.setData(transRecordService.getTransList());
 
         return result;
     }

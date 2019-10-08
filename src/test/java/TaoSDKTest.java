@@ -1,4 +1,5 @@
 import com.taomini.core.schedule.SendSchedule;
+import com.taomini.service.IIniConfigService;
 import com.taomini.service.ITransRecordService;
 import com.taomini.util.HttpUtils;
 import org.junit.Test;
@@ -6,7 +7,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.terracotta.context.annotations.ContextParent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +29,9 @@ public class TaoSDKTest {
 
     @Autowired
     ITransRecordService transRecordService;
+
+    @Autowired
+    IIniConfigService iIniConfigService;
 
     @Test
     public void getPayMonth(){
@@ -56,6 +59,6 @@ public class TaoSDKTest {
 
     @Test
     public void testIncom(){
-
+        System.out.println(iIniConfigService.getIniConfig("1001", "01"));
     }
 }

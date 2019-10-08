@@ -1,9 +1,13 @@
 package com.taomini.service.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.taomini.core.constant.IniConfigEnum;
 import com.taomini.core.constant.TaoMiniConstant;
 import com.taomini.core.constant.TransTypeEnum;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.core.dao.ITransRecordMapper;
+import com.taomini.model.IniConfigDTO;
 import com.taomini.model.TransRecordDTO;
 import com.taomini.model.vo.TransRecordVO;
 import com.taomini.service.ITransRecordService;
@@ -30,6 +34,9 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
     @Autowired
     private ITransRecordMapper transRecordMapper;
+
+    @Autowired
+    private IniConfigServiceImpl iniConfigService;
 
     @Override
     public void saveRecord(TransRecordDTO dto) {
@@ -382,6 +389,24 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
         DecimalFormat df = new DecimalFormat("#.00");
         return df.format(pay) + "";
+    }
+
+    @Override
+    public JSONArray getTransList() {
+        List<IniConfigDTO> iniConfigDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass());
+        JSONArray arr = new JSONArray();
+
+        for(IniConfigDTO dto : iniConfigDTOS){
+            JSONObject object = new JSONObject();
+            String transType = dto.getIniCode();
+            object.put("transType", transType);
+            object.put("transTypeName", TaoMiniUtils.getTransTypeName(transType+""));
+            object.put("imageUrl", TaoMiniUtils.getTransImageUrl(transType+""));
+            object.put("imageUrlActive", TaoMiniUtils.getTransActiveImageUrl(transType + ""));
+            arr.add(object);
+        }
+
+        return arr;
     }
 
     private String format(String date){

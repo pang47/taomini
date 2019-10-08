@@ -1,5 +1,6 @@
 package com.taomini.service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.taomini.model.TransRecordDTO;
 import com.taomini.model.vo.TransRecordVO;
 
@@ -27,4 +28,6 @@ public interface ITransRecordService {
     String[] getTransReportMonth();
 
     String getIncomeByMonth(String month);
+
+    JSONArray getTransList();
 }
