@@ -434,7 +434,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         String transDate = "";
         double total = 0;
         for(TransRecordDTO trans : transs){
-            trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()));
+            trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()) + "|" + TaoMiniUtils.getUserName(trans.getUser()));
             IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), trans.getTransType());
             trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(imgDTO.getIniCodeValue()));
             if(transDate.equals("")){
