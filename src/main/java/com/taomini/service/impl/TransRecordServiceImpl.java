@@ -419,6 +419,73 @@ public class TransRecordServiceImpl implements ITransRecordService {
         return arr;
     }
 
+    @Override
+    public List<TransRecordVO> getRecordByDate(String _transDate) {
+        TransRecordDTO dto = new TransRecordDTO();
+        dto.setTransDate(_transDate);
+        List<TransRecordDTO> transs = transRecordMapper.getRecordByUserAndDate(dto);
+        List<TransRecordDTO> sameDate = new ArrayList<>();
+        List<TransRecordVO> retList = new ArrayList<>();
+        TransRecordVO vo = new TransRecordVO();
+        String transDate = "";
+        double total = 0;
+        for(TransRecordDTO trans : transs){
+            trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()));
+            IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), trans.getTransType());
+            trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(imgDTO.getIniCodeValue()));
+            if(transDate.equals("")){
+                //第一次进入
+                transDate = trans.getTransDate();
+            }
+
+            //日期变了,重置对象
+            if(!transDate.equals(trans.getTransDate())){
+                //设置对象
+                vo.setTotal(total+"");
+                vo.setData(sameDate);
+                vo.setTransDate(DateUtil.formatDateMMDD(transDate));
+                retList.add(vo);
+                //重置对象
+                transDate = trans.getTransDate();
+                vo = new TransRecordVO();
+                sameDate = new ArrayList<>();
+                total = 0;
+                //加上本轮信息
+                sameDate.add(trans);
+                //日统计统计收入
+                boolean isIncome = false;
+                for(String transType : TaoMiniConstant.NOPAYTRANS){
+                    if(transType.equals(trans.getTransType())){
+                        isIncome = true;
+                    }
+                }
+                if(!isIncome)
+                    total += Double.parseDouble(trans.getMoney());
+            }else{
+                sameDate.add(trans);
+                //日统计统计收入
+                boolean isIncome = false;
+                for(String transType : TaoMiniConstant.NOPAYTRANS){
+                    if(transType.equals(trans.getTransType())){
+                        isIncome = true;
+                    }
+                }
+                if(!isIncome)
+                    total += Double.parseDouble(trans.getMoney());
+            }
+        }
+
+        //加上最后一段
+        if(!sameDate.isEmpty()){
+            vo.setTotal(total+"");
+            vo.setData(sameDate);
+            vo.setTransDate(DateUtil.formatDateMMDD(transDate));
+            retList.add(vo);
+        }
+
+        return retList;
+    }
+
     private String format(String date){
         String[] dates = date.split(" ");
         return dates[0].substring(0,4) + "年" + dates[0].substring(4,6) + "月" + dates[0].substring(6, 8) + "日 " + dates[1].substring(0, 2) + ":" + dates[1].substring(2,4) + ":" + dates[1].substring(4,6);

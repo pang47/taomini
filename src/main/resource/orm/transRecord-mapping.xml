@@ -61,7 +61,10 @@
 		CRT_TIME
 		FROM
 		TRANSRECORD
-		WHERE OPEN_ID = #{user,jdbcType=VARCHAR} AND INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0 AND STATUS = '1' AND TRANS_TYPE &lt;&gt; '19'
+		WHERE INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0 AND STATUS = '1' AND TRANS_TYPE &lt;&gt; '19'
+		<if test="user != null and user != ''">
+			AND OPEN_ID = #{user,jdbcType=VARCHAR}
+		</if>
 		UNION
 		SELECT
 		TRANS_ID,

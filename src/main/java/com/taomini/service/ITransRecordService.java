@@ -30,4 +30,6 @@ public interface ITransRecordService {
     String getIncomeByMonth(String month);
 
     JSONArray getTransList();
+
+    List<TransRecordVO> getRecordByDate(String transDate);
 }

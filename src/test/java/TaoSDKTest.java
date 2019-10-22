@@ -60,9 +60,6 @@ public class TaoSDKTest {
 
     @Test
     public void testIncom(){
-        long begin = System.currentTimeMillis();
-        System.out.println(transRecordService.getTransList());
-        long end = System.currentTimeMillis();
-        System.out.println(end-begin);
+        transRecordService.getRecordByDate("20191022");
     }
 }
