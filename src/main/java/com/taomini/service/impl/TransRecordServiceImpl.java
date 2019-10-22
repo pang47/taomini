@@ -124,6 +124,10 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
     @Override
     public List<TransRecordVO> getRecordByUserAndDatePage(String openId, String _transDate) {
+        IniConfigDTO iniConfigDTO = iniConfigService.getIniConfig4One(IniConfigEnum.SYSTEMCONFIG.getIniType(), IniConfigEnum.SYSTEMCONFIG.getIniClass(), "isAllTrans");
+        if(iniConfigDTO!=null && iniConfigDTO.getIniCodeValue().equals("all")){
+            return this.getRecordByDate(_transDate);
+        }
         TransRecordDTO dto = new TransRecordDTO();
         dto.setUser(openId);
         dto.setTransDate(_transDate);

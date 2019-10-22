@@ -2,7 +2,8 @@ package com.taomini.core.constant;
 
 public enum IniConfigEnum {
     TRANSTYPE("1001", "01"),
-    TRANSTYPEIMAGE("1001", "02");
+    TRANSTYPEIMAGE("1001", "02"),
+    SYSTEMCONFIG("00", "01");
 
     IniConfigEnum(String iniType, String iniClass){
         this.iniType = iniType;
