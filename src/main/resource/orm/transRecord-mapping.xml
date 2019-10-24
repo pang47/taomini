@@ -61,27 +61,10 @@
 		CRT_TIME
 		FROM
 		TRANSRECORD
-		WHERE INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0 AND STATUS = '1' AND TRANS_TYPE &lt;&gt; '19'
+		WHERE INSTR(TRANS_DATE, ${transDate}) > 0 AND STATUS = '1'
 		<if test="user != null and user != ''">
-			AND OPEN_ID = #{user,jdbcType=VARCHAR}
+			AND OPEN_ID = ${user}
 		</if>
-		UNION
-		SELECT
-		TRANS_ID,
-		MONEY,
-		OPEN_ID,
-		USER_NAME,
-		TRANS_DATE,
-		TRANS_TIME,
-		TRANS_TYPE,
-		REMARK,
-		STATUS,
-		CRT_DATE,
-		CRT_TIME
-		FROM
-		TRANSRECORD
-		WHERE INSTR(TRANS_DATE, #{transDate,jdbcType=VARCHAR}) > 0 AND STATUS = '1' AND TRANS_TYPE = '19'
-		ORDER BY TRANS_DATE DESC, CRT_DATE DESC, CRT_TIME DESC
 	</select>
 
 	<select id="getRecordByUser" parameterType="com.taomini.model.TransRecordDTO" resultMap="BaseResultMap">
