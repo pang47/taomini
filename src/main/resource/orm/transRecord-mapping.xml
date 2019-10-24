@@ -63,7 +63,7 @@
 		TRANSRECORD
 		WHERE INSTR(TRANS_DATE, ${transDate}) > 0 AND STATUS = '1'
 		<if test="user != null and user != ''">
-			AND OPEN_ID = ${user}
+			AND OPEN_ID = #{user}
 		</if>
 	</select>
 
