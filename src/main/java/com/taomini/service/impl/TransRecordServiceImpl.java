@@ -433,9 +433,19 @@ public class TransRecordServiceImpl implements ITransRecordService {
         TransRecordVO vo = new TransRecordVO();
         String transDate = "";
         double total = 0;
+
+        List<IniConfigDTO> iniConfigDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass());
+
         for(TransRecordDTO trans : transs){
             trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()) + "|" + TaoMiniUtils.getUserName(trans.getUser()));
-            IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), trans.getTransType());
+            //IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), trans.getTransType());
+            IniConfigDTO imgDTO = new IniConfigDTO();
+            for(IniConfigDTO config : iniConfigDTOS){
+                if(config.getIniCode().equals(trans.getTransType())){
+                    imgDTO = config;
+                    break;
+                }
+            }
             trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(imgDTO.getIniCodeValue()));
             if(transDate.equals("")){
                 //第一次进入

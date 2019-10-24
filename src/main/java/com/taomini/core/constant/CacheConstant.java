@@ -11,7 +11,8 @@ package com.taomini.core.constant;
  */
 public enum CacheConstant {
 
-    WXOPENID("wxOpenId", "wxOpenId");
+    WXOPENID("wxOpenId", "wxOpenId"),
+    CONFIG("iniConfig", "iniConfig");
 
     private String code;
     private String label;

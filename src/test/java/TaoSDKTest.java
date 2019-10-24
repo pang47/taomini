@@ -37,8 +37,12 @@ public class TaoSDKTest {
     @Test
     public void getPayMonth(){
         Map<String, Object> param = new HashMap<>();
-        param.put("month", "201909");
-        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini_dev/record/getPayByMonth", param));
+        param.put("transDate", "201909");
+        param.put("openId", "123");
+        long begin = System.currentTimeMillis();
+        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini/record/getTransRecordByUser", param));
+        long end = System.currentTimeMillis();
+        System.out.println(end-begin);
     }
 
     @Test
@@ -60,6 +64,9 @@ public class TaoSDKTest {
 
     @Test
     public void testIncom(){
-        transRecordService.getRecordByDate("20191022");
+        long begin = System.currentTimeMillis();
+        transRecordService.getRecordByUserAndDatePage("20191022", "201910");
+        long end = System.currentTimeMillis();
+        System.out.println(end - begin);
     }
 }
