@@ -65,6 +65,7 @@
 		<if test="user != null and user != ''">
 			AND OPEN_ID = #{user}
 		</if>
+		ORDER BY TRANS_DATE DESC
 	</select>
 
 	<select id="getRecordByUser" parameterType="com.taomini.model.TransRecordDTO" resultMap="BaseResultMap">

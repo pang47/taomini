@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSON;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.core.schedule.SendSchedule;
 import com.taomini.service.IIniConfigService;
@@ -65,7 +66,7 @@ public class TaoSDKTest {
     @Test
     public void testIncom(){
         long begin = System.currentTimeMillis();
-        transRecordService.getIncomeByMonth("201910");
+        System.out.println(JSON.toJSONString(transRecordService.getRecordByUserAndDate("", "201910")));
         long end = System.currentTimeMillis();
         System.out.println(end - begin);
     }
