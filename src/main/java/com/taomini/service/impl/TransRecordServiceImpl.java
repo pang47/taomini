@@ -380,7 +380,6 @@ public class TransRecordServiceImpl implements ITransRecordService {
     public String getIncomeByMonth(String month) {
         TransRecordDTO dto = new TransRecordDTO();
         dto.setTransDate(month);
-        dto.setUser(UserConstant.TAO);
         double pay = 0;
 
         //SQL中有UNION语句，只需要查询一次就足够了
