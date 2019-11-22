@@ -127,6 +127,7 @@ public class PushMessageServiceImpl implements IPushMessageService {
             taoForm.setPushMsg(getSendMsg(data).toJSONString());
             taoForm.setTemplete(templeteId);
             taoForm = WxApiUtils.pushMessage(taoForm);
+            formInfoMapper.updateFormInfo(taoForm);
         }
 
         FormInfoDTO SQForm = formInfoMapper.getFormInfoByOpenId(UserConstant.SIQI);

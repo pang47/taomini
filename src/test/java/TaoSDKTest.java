@@ -66,7 +66,7 @@ public class TaoSDKTest {
     @Test
     public void testIncom(){
         long begin = System.currentTimeMillis();
-        System.out.println(JSON.toJSONString(transRecordService.getRecordByUserAndDate("", "201910")));
+        transRecordService.getTransList();
         long end = System.currentTimeMillis();
         System.out.println(end - begin);
     }
