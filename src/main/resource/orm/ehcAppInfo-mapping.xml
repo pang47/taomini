@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 通过namespace来找到对应的sql语句 -->
+<mapper namespace="com.taomini.core.dao.IEhcAppInfoMapper">
+    <!-- 映射对象 -->
+    <resultMap type="com.taomini.model.EhcAppInfoDTO" id="BaseResultMap">
+        <id column="AREA" jdbcType="VARCHAR" property="area" />
+        <id column="APP_ID" jdbcType="VARCHAR" property="appId" />
+        <id column="APP_KEY" jdbcType="VARCHAR" property="appKey" />
+        <id column="TERM_ID" jdbcType="VARCHAR" property="termId" />
+        <id column="GATEWAY_URL" jdbcType="VARCHAR" property="gatewayUrl" />
+    </resultMap>
+
+    <select id="getAllAppInfo" parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		AREA,
+		APP_ID,
+		APP_KEY,
+		TERM_ID,
+		GATEWAY_URL
+		FROM
+		EHC_APP_INFO
+	</select>
+
+
+
+</mapper>

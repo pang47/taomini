@@ -49,4 +49,15 @@ public class EhcCodeController {
 
         return result;
     }
+
+    @ResponseBody
+    @RequestMapping(value="getAllEhcInfo")
+    public Result getAllEhcInfo(){
+        Result result = new Result();
+
+        result.setSucc(true);
+        result.setData(ehcCodeVerifyService.getAllInfo());
+
+        return result;
+    }
 }

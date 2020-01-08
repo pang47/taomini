@@ -1,14 +1,18 @@
 package com.taomini.service.impl;
 
+import com.taomini.model.EhcAppInfoDTO;
+import com.taomini.service.IEhcAppInfoService;
 import com.taomini.service.IEhcCodeVerifyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.List;
 
 /**
  *
@@ -22,6 +26,9 @@ public class EhcCodeVerifyServiceImpl implements IEhcCodeVerifyService {
     private static final Logger logger = LoggerFactory.getLogger(EhcCodeVerifyServiceImpl.class);
     private static final String address = "127.0.0.1";
     private static final int port = 8999;
+
+    @Autowired
+    private IEhcAppInfoService ehcAppInfoService;
 
     @Override
     public String verifyCode(String code) {
@@ -39,4 +46,11 @@ public class EhcCodeVerifyServiceImpl implements IEhcCodeVerifyService {
             return "请求失败" + e.getMessage();
         }
     }
+
+    @Override
+    public List<EhcAppInfoDTO> getAllInfo() {
+        return ehcAppInfoService.getAllEhcInfo();
+    }
+
+
 }

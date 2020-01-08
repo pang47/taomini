@@ -76,7 +76,17 @@ public class TaoSDKTest {
         Map<String, Object> param = new HashMap<>();
         param.put("code", "201909");
         long begin = System.currentTimeMillis();
-        System.out.println(HttpUtils.doPost("http://127.0.0.1:8077/taomini/ehc/codeVerify", param));
+        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini/ehc/codeVerify", param));
+        long end = System.currentTimeMillis();
+        System.out.println(end-begin);
+    }
+
+
+    @Test
+    public void getAllInfo(){
+        Map<String, Object> param = new HashMap<>();
+        long begin = System.currentTimeMillis();
+        System.out.println(HttpUtils.doPost("http://127.0.0.1:8077/taomini/ehc/getAllEhcInfo", param));
         long end = System.currentTimeMillis();
         System.out.println(end-begin);
     }
