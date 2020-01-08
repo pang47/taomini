@@ -30,7 +30,7 @@ public class EhcCodeVerifyServiceImpl implements IEhcCodeVerifyService {
             OutputStream outputStream = socket.getOutputStream();
             InputStream inputStream = socket.getInputStream();
             byte[] bytes = new byte[1024];
-            outputStream.write("我是JAVA客户端".getBytes());
+            outputStream.write(code.getBytes());
             int len = inputStream.read(bytes);
             String str = new String(bytes,0,len);
             return str;
