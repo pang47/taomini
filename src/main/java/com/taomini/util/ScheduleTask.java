@@ -26,7 +26,7 @@ public class ScheduleTask {
     private static final Logger logger = LoggerFactory.getLogger(ScheduleTask.class);
     private static ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
-    //@Scheduled(cron = "0 */5 * * * ?")
+//    @Scheduled(cron = "0 */5 * * * ?")
     public void doTask(){
         Map map = new HashMap<String, String>();
         map.put("reqData","{\"source\":0,\"sharePin\":\"7shPo28N444IB69KXKfJCA\"}");
@@ -46,11 +46,16 @@ public class ScheduleTask {
         header.put("Accept-Language", "zh-CN,zh;q=0.9");
 
         //cookie值修改
-        String cookies = "__jdu=78480226; areaId=16; ipLoc-djd=16-1315-3486-0; PCSYCityID=1315; shshshfpb=0985d61a006a84ff299e7f9260ed5e1cabe755024af4e14295b7ab312e; shshshfpa=5e1c5952-b355-ea0d-fcb4-8906285ee0fb-1558803281; TrackID=1i5SpALmQNIsCqZT-ll8KShxxWvY0Mi7tUn3WS7J3VX06PUkqfeTYH5E45qhHDrm3g19lZ4GR6CtIZ_isWGPLK_NFtK1oVITGrfTUNn3rkAQ; pinId=HrU0kWqgsKB5SBbp-m3dqrV9-x-f3wj7; pin=jd_69469f4ef2092; unick=oooct; _tp=9RjnqP2YZsjk1LY6CIo1GCsj7cDO4pEZsQVlY7GYY20%3D; _pst=jd_69469f4ef2092; unpl=V2_ZzNtbRYFQxwmXxRXfh1bA2JWFlsRA0YScQwUU30RCwFlVEFZclRCFX0UR1BnG10UZwYZXUdcQRdFCEdkeBBVAWMDE1VGZxBFLV0CFSNGF1wjU00zQwBBQHcJFF0uSgwDYgcaDhFTQEJ2XBVQL0oMDDdRFAhyZ0AVRQhHZH0QWQxmABFacmdEJUU4RVB5GVQHVwIiXHIVF0lyDkFVflRaDGIKE15BUHMURQs%3d; __jdv=122270672|baidu-pinzhuan|t_288551095_baidupinzhuan|cpc|0f3d30c8dba7459bb52f2eb5eba8ac7d_0_ec18bfc245674d57be4655c679f53fb5|1559196873605; __jrr=6C890DA132E80F3685EF4781E180C7; qd_ad=iOS*url*1559263992494%7CcFNOux1KhoOuSu0GcCg0rg%7Cwechatshare%7C-%7C10; qd_uid=JWBFT2TT-2JBSZPTQUH9293KWCHVE; qd_fs=1559267831436; qd_ls=1559267831436; qd_ts=1559267831436; qd_sq=1; qd_sid=JWBFT2TT-2JBSZPTQUH9293KWCHVE-1; shshshfp=43358525fc649b78c93ca29a49b7f529; mba_muid=78480226; TrackerID=7CCt4e9ySPsXRfXp7F-KIX7MWoPXUO97O2LxOIDPCHljgn9BcReBvUOM4o3UMsHoHmDxPrBbgK56fxakVPgeCw; pt_key=AAJc8Ip-ADAAW-mNbaw_CR6dWPa_PjLK2DVLIlu7EvB3ySJ-7ZcEW_OD0KlGWEIsWYs2x7lxoSo; pt_pin=jd_69469f4ef2092; pt_token=1ovu4yxz; pwdt_id=jd_69469f4ef2092; __jd_ref_cls=MLoginRegister_SMSLoginSuccess; __jda=168871293.78480226.1558423167.1559196874.1559267835.8; __jdc=168871293; _jrda=1; 3AB9D23F7A4B3C9B=5REP2RNPWYD3TGSKEBJUG7P2A34T2SD65UPLDL6ZNU7DBMCYX5AYLHXEH22MV4GI5CYHVRHHL5GUSXD3MHTMAOGH2M";
+        String cookies = "__jdu=412293007; areaId=16; ipLoc-djd=16-1315-3486-0; shshshfpb=0985d61a006a84ff299e7f9260ed5e1cabe755024af4e14295b7ab312e; shshshfpa=5e1c5952-b355-ea0d-fcb4-8906285ee0fb-1558803281; unpl=V2_ZzNtbUJWFBN8WkNVekkOUGICEQ9LAhMUcV9OVH4bXA1lV0YPclRCFX0URldnGF8UZwcZXUBcQx1FCEdkeBBVAWMDE1VGZxBFLV0CFSNGF1wjU00zQwBBQHcJFF0uSgwDYgcaDhFTQEJ2XBVQL0oMDDdRFAhyZ0AVRQhHZH4ZXwZvARNcRGdzEkU4dlF7Gl4CZTMTbUNnAUEpAEFTfRxfSGIDEV5KVUIUczhHZHg%3d; __jdv=76161171|baidu-pinzhuan|t_288551095_baidupinzhuan|cpc|0f3d30c8dba7459bb52f2eb5eba8ac7d_0_10f78c400acd402c8da05f9143193eec|1575270800689; __jda=122270672.412293007.1574994967.1574994971.1575270801.2; user-key=95250f6e-e4f0-4688-a3ba-3bc521e0346f; cn=0; shshshfp=5783bc63f8a1d76d965877f47677d0bc; qd_ad=iOS*url*1574642604831%7C-%7Cjrappshare%7Cqqfriends%7C10; qd_uid=K3SALLH1-SFBJCR9DK2GN4MWACQ8O; qd_fs=1575524485617; qd_ls=1575524485617; qd_ts=1575524485617; qd_sq=1; qd_sid=K3SALLH1-SFBJCR9DK2GN4MWACQ8O-1; __jrr=41160065942945977E0187C384A1FF; TrackerID=eQm3rSnLZYPTQI8xfQ2GJZDL-fA4wCXn3PFdikpm44v4i4AEiTpqzRCIPx03V4RLLC_32D1D_d489IaUi-Vh67A4WWmvqLrC_JICijRaH-wp9fcC9M9t_JH-42FCDeScKFzi-Xm9aURR6fjbZlUWrA; pt_key=AAJd6J-TADB4_LN9aWNXeIja-qsqhclnln0-CvZ6rB7gFx7XP8sv-KF71FYlltc2E8GBWGumdok; pt_pin=jd_69469f4ef2092; pt_token=5ny1pmw5; pwdt_id=jd_69469f4ef2092; 3AB9D23F7A4B3C9B=5REP2RNPWYD3TGSKEBJUG7P2A34T2SD65UPLDL6ZNU7DBMCYX5AYLHXEH22MV4GI5CYHVRHHL5GUSXD3MHTMAOGH2M";
         logger.info("---------------------京东定时任务 开始------------------------");
         String ret = HttpUtils.doPost("https://ms.jr.jd.com/gw/generic/uc/h5/m/harvest?_=" + System.currentTimeMillis(), map, header, cookies);
         logger.info("返回信息:{}", ret);
         logger.info("---------------------京东定时任务 结束------------------------");
+    }
+
+    public static void main(String[] args) {
+        ScheduleTask tast = new ScheduleTask();
+        tast.doTask();
     }
 
 }
