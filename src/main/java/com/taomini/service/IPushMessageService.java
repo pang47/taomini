@@ -13,5 +13,5 @@ public interface IPushMessageService {
 
     void pushMessage(String templeteId);
 
-    void pushMessage(String[] data, String templeteId);
+    void pushMessageWeek(String templeteId);
 }
