@@ -3,6 +3,7 @@ package com.taomini.core.dao;
 import com.taomini.model.TransRecordDTO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 〈一句话功能简述〉<br>
@@ -24,4 +25,6 @@ public interface ITransRecordMapper {
     int updateTransRecordStatus(TransRecordDTO dto);
 
     int updateTransRecord(TransRecordDTO dto);
+
+    List<TransRecordDTO> getTransRecordDate(String transDate);
 }

@@ -45,74 +45,27 @@ public class PushMessageServiceImpl implements IPushMessageService {
      */
     @Override
     public void pushMessage(String tempeleId) {
-        //获取TAO推送
-//        String[] strs = {"2016年8月8日", "银行转账", "陈涛", "100元", "商户已接单", "备注"};
-//        JSONObject data = new JSONObject();
-//        for (int i = 0; i < strs.length; i++) {
-//            JSONObject value = new JSONObject();
-//            value.put("value", strs[i]);
-//            data.put("keyword" + (i + 1), value);
-//        }
-        String[] taoStrs = new String[4];
-        List<TransRecordDTO> taoTrans = transRecordService.getRecordByUserAndDate(UserConstant.TAO, DateUtil.getCurrDate());
-        taoStrs[0] = DateUtil.getCurrDate();
-        taoStrs[1] = UserConstant.TAOUSER.getUserName();
-        double total = 0;
-        String msg = "其中";
-        for(TransRecordDTO dto : taoTrans){
-            total += Double.parseDouble(dto.getMoney());
-            String remark = StringUtils.isEmpty(dto.getRemark())?"":"(" + dto.getRemark() + ")";
-            msg += TaoMiniUtils.getTransTypeName(dto.getTransType()) + dto.getMoney() + remark + ";";
-        }
+        JSONObject pushMessage = new JSONObject();
 
-        String[] sqStrs = new String[4];
-        List<TransRecordDTO> sqTrans = transRecordService.getRecordByUserAndDate(UserConstant.SIQI, DateUtil.getCurrDate());
-        sqStrs[0] = DateUtil.getCurrDate();
-        sqStrs[1] = UserConstant.SIQIUSER.getUserName();
-        double sqtotal = 0;
-        String sqMsg = "其中";
-        for(TransRecordDTO dto : sqTrans){
-            sqtotal += Double.parseDouble(dto.getMoney());
-            String remark = StringUtils.isEmpty(dto.getRemark())?"":"(" + dto.getRemark() + ")";
-            sqMsg += TaoMiniUtils.getTransTypeName(dto.getTransType()) + dto.getMoney() + remark + ";";
-        }
+        //拼装消息
+        JSONObject data = new JSONObject();
+        JSONObject time = new JSONObject();
+        time.put("value", DateUtil.formatDate(DateUtil.getCurrDateTime()));
+        data.put("date12", time);
 
-        //modify by chentao
-        //小谢要求所有金额
-        double all = total + sqtotal;
-        taoStrs[2] = all + "";
-        sqStrs[2] = all + "";
+        JSONObject amount = new JSONObject();
+        amount.put("value", transRecordService.getTransMoneyDate());
+        data.put("amount10", amount);
 
-        taoStrs[3] = "今日"+ UserConstant.TAOUSER.getUserName() +"花了" + total + "元," + "今日"+ UserConstant.SIQIUSER.getUserName() +"花了" + sqtotal + "元。\n" + msg;
-        sqStrs[3] = "今日"+ UserConstant.SIQIUSER.getUserName() +"花了" + sqtotal + "元," + "今日"+ UserConstant.TAOUSER.getUserName() +"花了" + total + "元。\n" + sqMsg;
+        JSONObject ting = new JSONObject();
+        ting.put("value", transRecordService.getTransReportDate());
+        data.put("thing9", ting);
 
+        pushMessage.put("touser", UserConstant.TAO);
+        pushMessage.put("template_id", tempeleId);
+        pushMessage.put("data", data);
 
-        FormInfoDTO taoForm = formInfoMapper.getFormInfoByOpenId(UserConstant.TAO);
-        if (taoForm == null) {
-            LOGGER.info("推送信息不足,TAO");
-        } else {
-            taoForm.setPushDate(DateUtil.getCurrDate());
-            taoForm.setPushTime(DateUtil.getCurrTime());
-            taoForm.setPushMsg(getSendMsg(taoStrs).toJSONString());
-            taoForm.setTemplete(tempeleId);
-            taoForm = WxApiUtils.pushMessage(taoForm);
-            formInfoMapper.updateFormInfo(taoForm);
-        }
-
-
-        //获取SIQI推送
-
-        FormInfoDTO SQForm = formInfoMapper.getFormInfoByOpenId(UserConstant.SIQI);
-        if (SQForm == null) {
-            LOGGER.info("推送信息不足,SIQI");
-        } else {
-            SQForm.setPushDate(DateUtil.getCurrDate());
-            SQForm.setPushTime(DateUtil.getCurrTime());
-            SQForm.setPushMsg(getSendMsg(sqStrs).toJSONString());
-            SQForm.setTemplete(tempeleId);
-            SQForm = WxApiUtils.pushMessage(SQForm);
-            formInfoMapper.updateFormInfo(SQForm);
-        }
+        WxApiUtils.pushMessage(pushMessage);
 
     }
 

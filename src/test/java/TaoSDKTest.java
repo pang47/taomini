@@ -60,13 +60,13 @@ public class TaoSDKTest {
 
     @Test
     public void testSchedule(){
-        sendSchedule.sendMonth();
+        sendSchedule.sendDailyMsg();
     }
 
     @Test
     public void testIncom(){
         long begin = System.currentTimeMillis();
-        transRecordService.getTransList();
+        transRecordService.getTransReportDate();
         long end = System.currentTimeMillis();
         System.out.println(end - begin);
     }

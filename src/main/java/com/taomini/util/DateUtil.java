@@ -23,6 +23,11 @@ public class DateUtil {
         return df.format(new Date());   // new Date()为获取当前系统时间
     }
 
+    public static String getCurrDateTime(){
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");//设置日期格式
+        return df.format(new Date());   // new Date()为获取当前系统时间
+    }
+
     /**
      * yyyyMMdd ->MM月DD日 星期X
      * @param date
@@ -80,6 +85,22 @@ public class DateUtil {
         date = calendar.getTime();
         String accDate = format.format(date);
         return accDate;
+    }
+
+    /**
+     * yyyyMMddhhmiss 2 yyyy年
+     * @param formdate
+     * @return
+     */
+    public static String formatDate(String formdate){
+        String year = formdate.substring(0, 4);
+        String month = formdate.substring(4,6);
+        String day = formdate.substring(6,8);
+        String hour = formdate.substring(8, 10);
+        String min = formdate.substring(10, 12);
+        String ss = formdate.substring(12, 14);
+        String ret = year + "-" + month + "-" + day + " " + hour + ":" + min + ":" + ss;
+        return ret;
     }
 
     public static void main(String[] args) {

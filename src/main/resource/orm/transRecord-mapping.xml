@@ -13,6 +13,7 @@
 		<id column="TRANS_DATE" jdbcType="VARCHAR" property="transDate" />
 		<id column="TRANS_TIME" jdbcType="VARCHAR" property="transTime" />
 		<id column="TRANS_TYPE" jdbcType="VARCHAR" property="transType" />
+		<id column="TRANS_TYPE_NAME" jdbcType="VARCHAR" property="transTypeName" />
 		<id column="REMARK" jdbcType="VARCHAR" property="remark" />
 		<id column="CRT_DATE" jdbcType="VARCHAR" property="crtDate" />
 		<id column="CRT_TIME" jdbcType="VARCHAR" property="crtTime" />
@@ -110,5 +111,11 @@
 		TRANS_DATE = #{transDate, jdbcType=VARCHAR}
 		where TRANS_ID = #{transId,jdbcType=VARCHAR}
 	</update>
+
+	<select id="getTransRecordDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select money, ini_code_value as trans_type_name from (
+			select sum(money) money, trans_type from transrecord where trans_date = #{transDate} group by trans_type) t
+			left JOIN ini_config i on i.ini_code = t.trans_type and i.ini_type = '1001' and i.ini_class = '01'
+	</select>
 
 </mapper>

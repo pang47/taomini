@@ -291,6 +291,19 @@ public class TransRecordServiceImpl implements ITransRecordService {
     }
 
     @Override
+    public String getTransReportDate() {
+        List<TransRecordDTO> retList = transRecordMapper.getTransRecordDate(DateUtil.getCurrDate());
+        StringBuffer sb = new StringBuffer();
+        for(TransRecordDTO dto : retList){
+            sb.append(dto.getTransTypeName());
+            sb.append(":");
+            sb.append(dto.getMoney());
+            sb.append(";\n");
+        }
+        return sb.toString();
+    }
+
+    @Override
     public String[] getTransReportMonth() {
         String[] strs = new String[3];
         //统计时间，本月支出，记账数目
@@ -502,6 +515,17 @@ public class TransRecordServiceImpl implements ITransRecordService {
         end = System.currentTimeMillis();
         System.out.println(end - begin);
         return retList;
+    }
+
+    @Override
+    public String getTransMoneyDate() {
+        List<TransRecordDTO> retList = transRecordMapper.getTransRecordDate(DateUtil.getCurrDate());
+        double sum = 0;
+        for(TransRecordDTO transRecordDTO : retList){
+            sum+=Double.parseDouble(transRecordDTO.getMoney());
+        }
+        DecimalFormat df = new DecimalFormat("#.00");
+        return df.format(sum) + "";
     }
 
     private String format(String date){

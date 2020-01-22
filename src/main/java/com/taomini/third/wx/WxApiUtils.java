@@ -45,7 +45,7 @@ public class WxApiUtils {
     private static final String WJW_APPID = "wx85dcd5723776f64b";
     private static final String WJW_APPSECRET = "c49744ec1bc513ea7c442749db0cce7a";
 
-    private static final String sendMsgUrl = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=ACCESS_TOKEN";
+    private static final String sendMsgUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=ACCESS_TOKEN";
 
     @ResponseBody
     @RequestMapping(value="getOpenId")
@@ -77,7 +77,7 @@ public class WxApiUtils {
         JSONObject sendJson = new JSONObject();
         sendJson.put("touser", form.getOpenId());
         sendJson.put("template_id", form.getTemplete());
-        sendJson.put("form_id", form.getFormId());
+        //sendJson.put("form_id", form.getFormId());
         sendJson.put("data", JSON.parseObject(form.getPushMsg()));
         try {
             String retInfo = HttpUtils.request(sendUrl, null, sendJson.toJSONString(), "UTF-8", null);
@@ -97,6 +97,24 @@ public class WxApiUtils {
         logger.info("发送推送结束:{}", form.getFormId());
 
         return form;
+    }
+
+    /**
+     * 新版订阅消息
+     * @param form
+     */
+    public static void pushMessage(JSONObject form){
+        logger.info("发送推送信息:{}", JSON.toJSONString(form));
+        String sendUrl = sendMsgUrl.replace("ACCESS_TOKEN", getAccessToken());
+        try {
+            String retInfo = HttpUtils.request(sendUrl, null, form.toJSONString(), "UTF-8", null);
+            JSONObject retObj = JSON.parseObject(retInfo);
+            logger.info("返回信息:{}", retObj);
+        } catch (Exception e) {
+            logger.error("发送推送消息失败,{}", e);
+        }
+
+        logger.info("发送推送结束:{}", form);
     }
 
 

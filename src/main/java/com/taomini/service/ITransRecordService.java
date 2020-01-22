@@ -25,6 +25,8 @@ public interface ITransRecordService {
 
     String[] getTransReportWeek();
 
+    String getTransReportDate();
+
     String[] getTransReportMonth();
 
     String getIncomeByMonth(String month);
@@ -32,4 +34,6 @@ public interface ITransRecordService {
     JSONArray getTransList();
 
     List<TransRecordVO> getRecordByDate(String transDate);
+
+    String getTransMoneyDate();
 }
