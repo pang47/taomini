@@ -12,6 +12,7 @@
 		<id column="INI_CLASS_NAME" jdbcType="VARCHAR" property="iniClassName" />
 		<id column="INI_CODE" jdbcType="VARCHAR" property="iniCode" />
 		<id column="INI_CODE_VALUE" jdbcType="VARCHAR" property="iniCodeValue" />
+		<id column="INI_DESC" jdbcType="VARCHAR" property="iniDesc" />
 	</resultMap>
 
 	<select id="getIniConfig" parameterType="com.taomini.model.IniConfigDTO" resultMap="BaseResultMap">
@@ -21,7 +22,8 @@
 		INI_CLASS,
 		INI_CLASS_NAME,
 		INI_CODE,
-		INI_CODE_VALUE
+		INI_CODE_VALUE,
+		INI_DESC
 		FROM
 		INI_CONFIG
 		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR}
@@ -34,7 +36,8 @@
 		INI_CLASS,
 		INI_CLASS_NAME,
 		INI_CODE,
-		INI_CODE_VALUE
+		INI_CODE_VALUE,
+		INI_DESC
 		FROM
 		INI_CONFIG
 		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR} AND INI_CODE = #{iniCode, jdbcType=VARCHAR}

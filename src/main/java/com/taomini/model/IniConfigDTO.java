@@ -16,6 +16,8 @@ public class IniConfigDTO {
     private String iniCode;
     private String iniCodeValue;
 
+    private String iniDesc;
+
     public String getIniType() {
         return iniType;
     }
@@ -62,5 +64,13 @@ public class IniConfigDTO {
 
     public void setIniCodeValue(String iniCodeValue) {
         this.iniCodeValue = iniCodeValue;
+    }
+
+    public String getIniDesc() {
+        return iniDesc;
+    }
+
+    public void setIniDesc(String iniDesc) {
+        this.iniDesc = iniDesc;
     }
 }

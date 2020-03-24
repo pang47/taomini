@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLEncoder;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.Signature;
@@ -46,6 +47,8 @@ public class WxApiUtils {
     private static final String WJW_APPSECRET = "c49744ec1bc513ea7c442749db0cce7a";
 
     private static final String sendMsgUrl = "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token=ACCESS_TOKEN";
+
+    private static final String idUrl = "https://api.weixin.qq.com/cv/ocr/idcard?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN";
 
     @ResponseBody
     @RequestMapping(value="getOpenId")
@@ -129,8 +132,15 @@ public class WxApiUtils {
     }
 
     public static void main(String[] args) {
-        //pushMessage();
-
+        String idSendUrl = idUrl.replace("ACCESS_TOCKEN", getAccessToken());
+        idSendUrl = idSendUrl.replace("ENCODE_URL", URLEncoder.encode("https://www.pangt.xyz/idCard/id.png"));
+        String retInfo = null;
+        try {
+            retInfo = HttpUtils.doGet(idSendUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(retInfo);
     }
 
     public static String sign(String request, String privateKey) throws Exception {

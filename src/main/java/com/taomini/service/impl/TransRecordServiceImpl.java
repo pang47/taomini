@@ -413,9 +413,13 @@ public class TransRecordServiceImpl implements ITransRecordService {
     @Override
     public JSONArray getTransList() {
         List<IniConfigDTO> iniConfigDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass());
+
+        iniConfigDTOS.sort(Comparator.comparing( obj -> obj.getIniDesc()));
         JSONArray arr = new JSONArray();
 
         List<IniConfigDTO> imageDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass());
+
+
 
         Map<String , String> imgMap = new HashMap<>();
         for(IniConfigDTO imgDto : imageDTOS){
