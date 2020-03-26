@@ -26,7 +26,7 @@
 		INI_DESC
 		FROM
 		INI_CONFIG
-		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR}
+		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR} AND status = "1"
 	</select>
 
 	<select id="getIniConfig4One" parameterType="com.taomini.model.IniConfigDTO" resultMap="BaseResultMap">
