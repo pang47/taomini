@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Comparator;
 import java.util.List;
@@ -35,6 +36,8 @@ public class LimitListServiceImpl implements ILimitService {
 
         List<IniConfigDTO> transInis = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass());
 
+        List<IniConfigDTO> imgInis = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass());
+
         List<TransRecordDTO> sumTrans = transRecordMapper.getTransRecordMonthByTransType(DateUtil.getCurrDate().substring(0, 6));
 
         JSONArray arr = new JSONArray();
@@ -51,6 +54,17 @@ public class LimitListServiceImpl implements ILimitService {
                 if (transRecordDTO.getTransType().equals(dto.getIniCode()))
                     obj.put("limit", Double.parseDouble(dto.getIniCodeValue()) - Double.parseDouble(transRecordDTO.getMoney()));
             });
+
+            if(obj.containsKey("limit")){
+                if(StringUtils.isEmpty(obj.get("limit")))
+                    obj.put("limit", "0.00");
+            }
+
+            imgInis.forEach(imgDto -> {
+                if (imgDto.getIniCode().equals(dto.getIniCode()))
+                    obj.put("imageUrl", dto.getIniCodeValue());
+            });
+
             arr.add(obj);
         });
 
