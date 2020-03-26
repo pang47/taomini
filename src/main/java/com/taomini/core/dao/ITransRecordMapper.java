@@ -27,4 +27,6 @@ public interface ITransRecordMapper {
     int updateTransRecord(TransRecordDTO dto);
 
     List<TransRecordDTO> getTransRecordDate(String transDate);
+
+    List<TransRecordDTO> getTransRecordMonthByTransType(String transDate);
 }

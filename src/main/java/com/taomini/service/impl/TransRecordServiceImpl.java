@@ -38,6 +38,9 @@ public class TransRecordServiceImpl implements ITransRecordService {
     @Autowired
     private IniConfigServiceImpl iniConfigService;
 
+    @Autowired
+    private TaoMiniUtils taoMiniUtils;
+
     @Override
     public void saveRecord(TransRecordDTO dto) {
         dto.setTransId(UUID.randomUUID().toString());
@@ -68,7 +71,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         String transDate = "";
         double total = 0;
         for(TransRecordDTO trans : transs){
-            trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()));
+            trans.setTransTypeName(taoMiniUtils.getTransTypeName(trans.getTransType()));
             IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), dto.getTransType());
             trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(imgDTO.getIniCodeValue()));
             if(transDate.equals("")){
@@ -138,7 +141,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         String transDate = "";
         double total = 0;
         for(TransRecordDTO trans : transs){
-            trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()));
+            trans.setTransTypeName(taoMiniUtils.getTransTypeName(trans.getTransType()));
             IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), trans.getTransType());
             trans.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(imgDTO.getIniCodeValue()));
             if(transDate.equals("")){
@@ -236,7 +239,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
     @Override
     public TransRecordDTO getTransRecord(String transId) {
         TransRecordDTO dto = transRecordMapper.getTransRecord(transId);
-        dto.setTransTypeName(TaoMiniUtils.getTransTypeName(dto.getTransType()));
+        dto.setTransTypeName(taoMiniUtils.getTransTypeName(dto.getTransType()));
         IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), dto.getTransType());
         dto.setImageUrl(TaoMiniUtils.getTransActiveImageUrl(imgDTO.getIniCodeValue()));
         return dto;
@@ -329,13 +332,13 @@ public class TransRecordServiceImpl implements ITransRecordService {
 
             if(!item.getTransType().equals(TransTypeEnum.BREAKFASTTRANS.getTransType()) &&
                 !item.getTransType().equals(TransTypeEnum.LUNCHTRANS.getTransType()) && !item.getTransType().equals(TransTypeEnum.DINNERTRANS.getTransType())){
-
-                if(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())) == null){
-                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), item.getMoney());
+                String transTypeName = taoMiniUtils.getTransTypeName(item.getTransType());
+                if(detailMap.get(transTypeName) == null){
+                    detailMap.put(transTypeName, item.getMoney());
                 }else{
-                    double money = Double.parseDouble(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())));
+                    double money = Double.parseDouble(detailMap.get(transTypeName));
                     money += Double.parseDouble(item.getMoney());
-                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), money+"");
+                    detailMap.put(transTypeName, money+"");
                 }
                 continue;
             }
@@ -353,13 +356,13 @@ public class TransRecordServiceImpl implements ITransRecordService {
         for(TransRecordDTO item : qlist){
             if(!item.getTransType().equals(TransTypeEnum.BREAKFASTTRANS.getTransType()) &&
                     !item.getTransType().equals(TransTypeEnum.LUNCHTRANS.getTransType()) && !item.getTransType().equals(TransTypeEnum.DINNERTRANS.getTransType())){
-
-                if(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())) == null){
-                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), item.getMoney());
+                String transTypeName = taoMiniUtils.getTransTypeName(item.getTransType());
+                if(detailMap.get(transTypeName) == null){
+                    detailMap.put(transTypeName, item.getMoney());
                 }else{
-                    double money = Double.parseDouble(detailMap.get(TaoMiniUtils.getTransTypeName(item.getTransType())));
+                    double money = Double.parseDouble(detailMap.get(transTypeName));
                     money += Double.parseDouble(item.getMoney());
-                    detailMap.put(TaoMiniUtils.getTransTypeName(item.getTransType()), money+"");
+                    detailMap.put(transTypeName, money+"");
                 }
                 continue;
             }
@@ -414,7 +417,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
     public JSONArray getTransList() {
         List<IniConfigDTO> iniConfigDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass());
 
-        iniConfigDTOS.sort(Comparator.comparing( obj -> Integer.parseInt(obj.getIniDesc())));
+        iniConfigDTOS.sort(Comparator.comparing( obj -> Integer.parseInt(obj.getIniDesc()))); //默认升序
         JSONArray arr = new JSONArray();
 
         List<IniConfigDTO> imageDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass());
@@ -457,7 +460,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         System.out.println(end - begin);
 
         for(TransRecordDTO trans : transs){
-            trans.setTransTypeName(TaoMiniUtils.getTransTypeName(trans.getTransType()) + "|" + TaoMiniUtils.getUserName(trans.getUser()));
+            trans.setTransTypeName(taoMiniUtils.getTransTypeName(trans.getTransType()) + "|" + TaoMiniUtils.getUserName(trans.getUser()));
             //IniConfigDTO imgDTO = iniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass(), trans.getTransType());
             IniConfigDTO imgDTO = new IniConfigDTO();
             for(IniConfigDTO config : iniConfigDTOS){

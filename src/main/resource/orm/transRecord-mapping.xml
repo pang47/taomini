@@ -118,4 +118,8 @@
 			left JOIN ini_config i on i.ini_code = t.trans_type and i.ini_type = '1001' and i.ini_class = '01'
 	</select>
 
+	<select id="getTransRecordMonthByTransType" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select sum(money) money, trans_type from transrecord  where instr(crt_date, #{transDate}) = 1 and trans_type != '19' group by trans_type
+	</select>
+
 </mapper>

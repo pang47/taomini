@@ -20,7 +20,8 @@ public enum TransTypeEnum {
     SUPERMARKETTRANS("17", "超市"),
     TAOBAOTRANS("18", "淘宝"),
 
-    INCOMETRANS("19", "收入")
+    INCOMETRANS("19", "收入"),
+    HOUSELOANTRANS("20", "房贷")
     ;
 
     private String transType;
