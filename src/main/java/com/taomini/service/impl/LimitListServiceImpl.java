@@ -58,11 +58,13 @@ public class LimitListServiceImpl implements ILimitService {
             if(obj.containsKey("limit")){
                 if(StringUtils.isEmpty(obj.get("limit")))
                     obj.put("limit", "0.00");
+            }else{
+                obj.put("limit", "0.00");
             }
 
             imgInis.forEach(imgDto -> {
                 if (imgDto.getIniCode().equals(dto.getIniCode()))
-                    obj.put("imageUrl", dto.getIniCodeValue());
+                    obj.put("imageUrl", imgDto.getIniCodeValue());
             });
 
             arr.add(obj);
