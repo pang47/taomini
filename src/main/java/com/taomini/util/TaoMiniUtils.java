@@ -9,6 +9,8 @@ import com.taomini.service.IIniConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * 工具类
  *
@@ -21,6 +23,9 @@ public class TaoMiniUtils {
 
     @Autowired
     IIniConfigService iIniConfigService;
+
+    //TODO 放到缓存里
+    public static List<IniConfigDTO> transInis;
     
     public static String[] imgList = {"https://www.pangt.xyz/breakfast.png",
             "https://www.pangt.xyz/lunch.png",
@@ -43,8 +48,16 @@ public class TaoMiniUtils {
             "https://www.pangt.xyz/income.png"};
     
     public String getTransTypeName(String transType){
-        IniConfigDTO dto = iIniConfigService.getIniConfig4One(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass(), transType);
-        return dto.getIniCodeValue();
+        if(transInis == null || transInis.isEmpty()){
+            transInis = iIniConfigService.getIniConfig(IniConfigEnum.TRANSTYPE.getIniType(), IniConfigEnum.TRANSTYPE.getIniClass());
+        }
+        StringBuffer sb = new StringBuffer();
+        transInis.forEach(dto->{
+            if(dto.getIniCode().equals(transType)){
+                sb.append(dto.getIniCodeValue());
+            }
+        });
+        return sb.toString() == ""?"未知交易类型" : sb.toString();
     }
 
     public static String getTransImageUrl(String transType){

@@ -3,6 +3,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.taomini.core.constant.UserConstant;
 import com.taomini.core.schedule.SendSchedule;
 import com.taomini.service.IIniConfigService;
+import com.taomini.service.ILimitService;
 import com.taomini.service.ITransRecordService;
 import com.taomini.util.HttpUtils;
 import org.junit.Test;
@@ -36,13 +37,16 @@ public class TaoSDKTest {
     @Autowired
     IIniConfigService iIniConfigService;
 
+    @Autowired
+    ILimitService limitService;
+
     @Test
     public void getPayMonth(){
         Map<String, Object> param = new HashMap<>();
-        param.put("transDate", "201909");
+        param.put("transDate", "202003");
         param.put("openId", "123");
         long begin = System.currentTimeMillis();
-        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini/record/getTransRecordByUser", param));
+        System.out.println(HttpUtils.doPost("http://127.0.0.1:8077/taomini/record/getTransRecordByUser", param));
         long end = System.currentTimeMillis();
         System.out.println(end-begin);
     }
@@ -90,6 +94,13 @@ public class TaoSDKTest {
         System.out.println(HttpUtils.doPost("http://127.0.0.1:8077/taomini/ehc/getAllEhcInfo", param));
         long end = System.currentTimeMillis();
         System.out.println(end-begin);
+    }
+
+
+    @Test
+    public void getTransList(){
+//        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini/record/getTransTypeList.do", null));
+        System.out.println(limitService.getLimitList());
     }
 
 

@@ -449,7 +449,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         dto.setTransDate(_transDate);
         List<TransRecordDTO> transs = transRecordMapper.getRecordByUserAndDate(dto);
         long end = System.currentTimeMillis();
-        System.out.println(end - begin);
+        System.out.println("1" + (end - begin));
         List<TransRecordDTO> sameDate = new ArrayList<>();
         List<TransRecordVO> retList = new ArrayList<>();
         TransRecordVO vo = new TransRecordVO();
@@ -457,7 +457,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
         double total = 0;
         List<IniConfigDTO> iniConfigDTOS = iniConfigService.getIniConfig(IniConfigEnum.TRANSTYPEIMAGE.getIniType(), IniConfigEnum.TRANSTYPEIMAGE.getIniClass());
         end = System.currentTimeMillis();
-        System.out.println(end - begin);
+        System.out.println("2" + (end - begin));
 
         for(TransRecordDTO trans : transs){
             trans.setTransTypeName(taoMiniUtils.getTransTypeName(trans.getTransType()) + "|" + TaoMiniUtils.getUserName(trans.getUser()));
@@ -520,7 +520,7 @@ public class TransRecordServiceImpl implements ITransRecordService {
             retList.add(vo);
         }
         end = System.currentTimeMillis();
-        System.out.println(end - begin);
+        System.out.println("3" + (end - begin));
         return retList;
     }
 
