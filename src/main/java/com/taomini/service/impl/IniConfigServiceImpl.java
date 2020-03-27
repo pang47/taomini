@@ -45,5 +45,10 @@ public class IniConfigServiceImpl implements IIniConfigService {
         return iIniConfigMapper.getIniConfig4One(iniConfigDTO);
     }
 
+    @Override
+    public int updateLimitInfo(IniConfigDTO dto) {
+        return iIniConfigMapper.updateIniConifg(dto);
+    }
+
 
 }

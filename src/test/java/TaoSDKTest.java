@@ -46,7 +46,7 @@ public class TaoSDKTest {
         param.put("transDate", "202003");
         param.put("openId", "123");
         long begin = System.currentTimeMillis();
-        System.out.println(HttpUtils.doPost("http://127.0.0.1:8077/taomini/record/getTransRecordByUser", param));
+        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini/record/getTransRecordByUser", param));
         long end = System.currentTimeMillis();
         System.out.println(end-begin);
     }
@@ -99,8 +99,11 @@ public class TaoSDKTest {
 
     @Test
     public void getTransList(){
-//        System.out.println(HttpUtils.doPost("https://www.pangt.xyz/taomini/record/getTransTypeList.do", null));
-        System.out.println(limitService.getLimitList());
+        Map<String, Object> param = new HashMap<>();
+        param.put("money", "5000");
+        param.put("type", "1");
+        System.out.println(HttpUtils.doPost("http://127.0.0.1:8077/taomini/limit/uploadLimitInfo.do", param));
+        //System.out.println(limitService.getLimitList());
     }
 
 

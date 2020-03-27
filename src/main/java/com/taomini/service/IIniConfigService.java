@@ -10,4 +10,6 @@ public interface IIniConfigService {
 
     IniConfigDTO getIniConfig4One(String iniType, String iniClass, String iniCode);
 
+    int updateLimitInfo(IniConfigDTO dto);
+
 }

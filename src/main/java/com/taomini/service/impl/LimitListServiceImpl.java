@@ -2,6 +2,7 @@ package com.taomini.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.taomini.core.common.Result;
 import com.taomini.core.constant.IniConfigEnum;
 import com.taomini.core.dao.ITransRecordMapper;
 import com.taomini.model.IniConfigDTO;
@@ -71,5 +72,23 @@ public class LimitListServiceImpl implements ILimitService {
         });
 
         return arr;
+    }
+
+    @Override
+    public Result uploadLimitInfo(String money, String type) {
+        IniConfigDTO iniConfigDTO = new IniConfigDTO();
+        iniConfigDTO.setIniClass(IniConfigEnum.LIMITTYPE.getIniClass());
+        iniConfigDTO.setIniType(IniConfigEnum.LIMITTYPE.getIniType());
+        iniConfigDTO.setIniCode(type);
+        iniConfigDTO.setIniCodeValue(money);
+        Result result = new Result();
+        try{
+            iniConfigService.updateLimitInfo(iniConfigDTO);
+            result.setSucc(true);
+        }catch (Exception e){
+            result.setSucc(false);
+            result.setRetMsg("修改预算失败");
+        }
+        return result;
     }
 }

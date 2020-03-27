@@ -43,4 +43,12 @@
 		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR} AND INI_CODE = #{iniCode, jdbcType=VARCHAR}
 	</select>
 
+	<update id="updateIniConifg" parameterType="com.taomini.model.IniConfigDTO">
+		update
+			ini_config
+		set
+			ini_code_value = #{iniCodeValue, jdbcType=VARCHAR}
+		WHERE INI_TYPE = #{iniType, jdbcType=VARCHAR} AND INI_CLASS = #{iniClass, jdbcType=VARCHAR} AND INI_CODE = #{iniCode, jdbcType=VARCHAR}
+	</update>
+
 </mapper>
